@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#211A1B" />
+<title>Luxe &amp; Lush Aesthetics — Darlington | Beauty &amp; Aesthetic Treatments</title>
+<meta name="description" content="Luxe &amp; Lush Aesthetics, Darlington. Facial treatments, dermal filler, plasma fibroblast, vitamin treatments and semi-permanent makeup with Jody Barker. Explore the menu and book through Faces Consent." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Luxe &amp; Lush Aesthetics — Darlington" />
+<meta property="og:description" content="A more beautiful way to feel like you. Beauty and aesthetic treatments in a personal setting in Darlington, established 2025." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23211A1B'/%3E%3Ctext x='50' y='67' font-family='Georgia,serif' font-size='42' fill='%23C7B29A' text-anchor='middle'%3EJB%3C/text%3E%3C/svg%3E" />
+
+<!--
+  LUXE & LUSH AESTHETICS — standalone edition.
+  Everything the site does runs inside this one file: navigation, treatment search and
+  filters, treatment details, the review carousel and the full Concierge knowledge base.
+  No build step, no server, no API key, no database.
+  External dependencies, all optional: the Google Fonts stylesheet (falls back to a system
+  serif and sans-serif), and the photography hosted on the site's image CDN (if unavailable
+  the layout still holds with its tonal panels). Booking, WhatsApp, email, telephone, map and
+  social links open the relevant app or website.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --espresso:#211A1B; --plum:#382633; --aubergine:#594354; --champagne:#C7B29A;
+  --ivory:#F8F5F0; --porcelain:#FDFCF9; --taupe:#B7A89F; --ink:#292426;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--porcelain);color:var(--espresso);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+input{font:inherit;color:inherit}
+h1,h2,h3,h4,p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+address{font-style:normal}
+::selection{background:var(--champagne);color:var(--espresso)}
+:focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+body.is-locked{overflow:hidden}
+
+/* ---------- primitives ---------- */
+.wrap{width:100%;max-width:1680px;margin:0 auto;padding:0 24px}
+.display{font-family:var(--serif);font-weight:300;letter-spacing:-.015em;line-height:.94}
+em{font-style:italic}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase}
+.eyebrow-sm{font-size:8.5px;letter-spacing:.28em}
+.rule{display:block;width:40px;height:1px;background:var(--champagne)}
+.eyebrow-line{display:flex;align-items:center;gap:16px}
+.lede{font-size:1rem;line-height:1.85;color:var(--aubergine)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:16px 30px;font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;transition:background .45s,color .45s,border-color .45s;cursor:pointer}
+.btn .arw{font-size:13px;line-height:1}
+.btn-solid{background:var(--espresso);color:var(--ivory)}
+.btn-solid:hover{background:var(--plum)}
+.btn-outline{border:1px solid rgba(33,26,27,.25);color:var(--espresso)}
+.btn-outline:hover{background:var(--espresso);color:var(--ivory);border-color:var(--espresso)}
+.btn-champ{background:var(--champagne);color:var(--espresso)}
+.btn-champ:hover{background:var(--ivory)}
+.btn-ghost{border:1px solid rgba(248,245,240,.32);color:var(--ivory)}
+.btn-ghost:hover{background:var(--ivory);color:var(--espresso)}
+.link-underline{position:relative;display:inline-block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding-bottom:4px}
+.link-underline::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.link-underline:hover::after{transform:scaleX(1)}
+.section{padding:96px 0}
+@media(min-width:640px){.section{padding:128px 0}}
+@media(min-width:1024px){.wrap{padding:0 64px}}
+.section-head{display:grid;gap:32px}
+@media(min-width:1024px){.section-head{grid-template-columns:repeat(12,1fr);align-items:end}.section-head .head-main{grid-column:span 7}.section-head .head-side{grid-column:8/span 4}}
+.h-lg{font-size:clamp(2.4rem,5.3vw,5rem);margin-top:26px}
+.h-md{font-size:clamp(2.3rem,4.5vw,4.2rem);margin-top:26px}
+.h-sm{font-size:clamp(2.2rem,3.9vw,3.5rem);margin-top:26px}
+.on-dark{color:var(--ivory)}
+.on-dark .lede{color:rgba(248,245,240,.68)}
+.on-dark .eyebrow{color:var(--champagne)}
+
+/* ---------- intro ---------- */
+.intro{position:fixed;inset:0;z-index:120;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--espresso);animation:introOut .9s var(--ease) 2.4s forwards}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
+.intro-mono{color:var(--champagne);animation:fadeUp 1.1s var(--ease) both}
+.intro-mono svg{width:80px;height:80px;display:block}
+.intro-word{margin-top:26px;font-family:var(--serif);font-size:1.4rem;letter-spacing:.42em;text-transform:uppercase;color:var(--ivory);animation:spread 1.4s var(--ease) .3s both}
+.intro-line{margin-top:20px;height:1px;width:168px;background:rgba(199,178,154,.55);transform-origin:left;animation:grow 1.15s var(--ease) .55s both}
+.intro-sub{margin-top:20px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(199,178,154,.75);animation:fadeIn .9s ease .85s both}
+@keyframes fadeUp{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes spread{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.42em}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.intro{display:none}}
+
+/* ---------- header ---------- */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:60;border-bottom:1px solid transparent;transition:background .45s,border-color .45s,backdrop-filter .45s}
+.site-header.is-scrolled{background:rgba(253,252,249,.93);backdrop-filter:blur(12px);border-bottom-color:rgba(183,168,159,.28)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1680px;margin:0 auto;padding:16px 24px}
+@media(min-width:1024px){.header-inner{padding:18px 64px}}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mono{width:34px;height:34px;color:var(--espresso);flex:0 0 auto}
+.brand-mono svg{width:100%;height:100%;display:block}
+.brand-name{display:block;font-family:var(--serif);font-size:1.05rem;letter-spacing:.34em;text-transform:uppercase;line-height:1}
+.brand-sub{display:block;margin-top:6px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(89,67,84,.72)}
+@media(min-width:640px){.brand-name{font-size:1.15rem}.brand-sub{font-size:9px}}
+.nav{display:none;align-items:center;gap:36px}
+.nav a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(33,26,27,.8);position:relative;padding-bottom:3px}
+.nav a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.nav a:hover::after{transform:scaleX(1)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.header-book{display:none;align-items:center;gap:8px;background:var(--espresso);color:var(--ivory);padding:13px 22px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;transition:background .45s}
+.header-book:hover{background:var(--plum)}
+.menu-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(33,26,27,.2);color:var(--espresso)}
+@media(min-width:640px){.header-book{display:inline-flex}}
+@media(min-width:1024px){.nav{display:flex}.menu-toggle{display:none}}
+.burger{width:18px;height:12px;position:relative}
+.burger span{position:absolute;left:0;right:0;height:1.4px;background:currentColor}
+.burger span:nth-child(1){top:0}.burger span:nth-child(2){top:5.3px}.burger span:nth-child(3){top:10.6px}
+
+/* ---------- mobile menu ---------- */
+.mobile-menu{position:fixed;inset:0;z-index:70;background:var(--espresso);display:flex;flex-direction:column;padding:20px 24px;transform:translateY(-102%);transition:transform .55s var(--ease);overflow-y:auto}
+.mobile-menu.is-open{transform:none}
+.mm-top{display:flex;align-items:center;justify-content:space-between}
+.mm-brand .brand-name{color:var(--ivory)}
+.mm-brand .brand-sub{color:rgba(199,178,154,.72)}
+.mm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(248,245,240,.25);color:var(--ivory);font-size:16px;line-height:1}
+.mm-links{margin-top:48px}
+.mm-links a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgba(248,245,240,.12);font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--ivory)}
+.mm-links a span{font-family:var(--sans);font-size:9px;letter-spacing:.24em;color:rgba(199,178,154,.6)}
+.mm-foot{margin-top:auto;padding-top:32px;display:grid;gap:12px}
+.mm-foot .btn-champ{width:100%}
+.mm-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mm-pair a{display:flex;align-items:center;justify-content:center;border:1px solid rgba(248,245,240,.25);padding:14px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory)}
+.mm-address{padding-top:8px;text-align:center;font-size:11px;letter-spacing:.04em;color:rgba(248,245,240,.45)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--porcelain);overflow:hidden}
+.hero-art{position:relative;width:100%;height:58svh;overflow:hidden}
+.hero-art img{width:100%;height:100%;object-fit:cover}
+.hero-art::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(33,26,27,.35),rgba(33,26,27,0) 42%,var(--porcelain) 100%)}
+.hero-pin{position:absolute;left:24px;bottom:14px;z-index:2;display:flex;align-items:center;gap:10px;color:var(--ivory);font-size:9px;letter-spacing:.3em;text-transform:uppercase}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:40px;padding-top:24px;padding-bottom:40px}
+.hero-label{margin-bottom:26px;color:var(--aubergine)}
+.hero-label .rule{margin-bottom:0}
+.hero-title{font-size:clamp(2.6rem,10.6vw,3.5rem)}
+.hero-title em{color:var(--plum)}
+.hero-sub{margin-top:22px;max-width:26rem;font-size:.95rem;line-height:1.8;color:var(--aubergine)}
+.hero-actions{margin-top:30px;display:flex;flex-direction:column;gap:12px}
+.hero-actions .btn{width:100%}
+.hero-foot{display:none}
+@media(min-width:1024px){
+  .hero{min-height:100svh}
+  .hero-art{position:absolute;top:0;right:0;width:53%;height:100%}
+  .hero-art::after{background:linear-gradient(to right,var(--porcelain) 0%,rgba(253,252,249,.16) 46%,rgba(253,252,249,0) 100%)}
+  .hero-pin{display:none}
+  .hero-inner{min-height:100svh;justify-content:space-between;gap:0;padding-top:128px;padding-bottom:36px}
+  .hero-copy{max-width:47rem;padding-top:6vh}
+  .hero-label{margin-bottom:32px}
+  .hero-title{font-size:clamp(3.4rem,5.9vw,7rem)}
+  .hero-sub{margin-top:38px;font-size:1rem}
+  .hero-actions{margin-top:42px;flex-direction:row;align-items:center;gap:32px}
+  .hero-actions .btn{width:auto}
+  .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid rgba(183,168,159,.35);padding-top:22px}
+  .hero-foot .meta{display:flex;align-items:center;gap:34px;color:rgba(89,67,84,.7);font-size:9px;letter-spacing:.3em;text-transform:uppercase}
+  .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(89,67,84,.6);font-size:8px;letter-spacing:.3em;text-transform:uppercase}
+  .scroll-cue i{display:block;width:1px;height:26px;background:linear-gradient(to bottom,rgba(33,26,27,.45),transparent)}
+}
+
+/* ---------- statement ---------- */
+.statement{background:var(--ivory)}
+.statement-grid{display:grid;gap:56px}
+@media(min-width:1024px){.statement-grid{grid-template-columns:repeat(12,1fr);gap:40px}.statement-main{grid-column:span 7}.statement-side{grid-column:9/span 4}}
+.statement-title{margin-top:32px;max-width:22ch;font-size:clamp(2.4rem,5vw,4.8rem)}
+.statement-title em{color:var(--plum)}
+.statement-body{margin-top:36px;max-width:34rem}
+.statement-body p+p{margin-top:22px}
+.statement-meta{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px 38px;border-top:1px solid rgba(183,168,159,.4);padding-top:26px}
+.statement-meta span{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(89,67,84,.72)}
+.principles{border-top:1px solid rgba(33,26,27,.15)}
+.principle{display:flex;gap:20px;padding:26px 0;border-bottom:1px solid rgba(33,26,27,.15)}
+.principle b{font-family:var(--serif);font-weight:400;font-size:.85rem;color:var(--champagne);padding-top:4px}
+.principle h3{font-family:var(--serif);font-weight:300;font-size:1.45rem;line-height:1.2}
+.principle p{margin-top:10px;font-size:.9rem;line-height:1.7;color:rgba(89,67,84,.88)}
+
+/* ---------- jody ---------- */
+.jody-grid{display:grid;gap:48px;align-items:center}
+@media(min-width:1024px){.jody-grid{grid-template-columns:repeat(12,1fr);gap:64px}.jody-visual{grid-column:span 5}.jody-copy{grid-column:7/span 6}}
+.jody-figure{position:relative}
+.jody-plate{position:relative;aspect-ratio:4/5;overflow:hidden;background:rgba(33,26,27,.06)}
+.jody-plate img{width:100%;height:100%;object-fit:cover}
+.jody-badge{position:absolute;right:-8px;bottom:-26px;width:104px;height:104px;display:none;align-items:center;justify-content:center;background:var(--espresso);color:var(--champagne)}
+.jody-badge svg{width:64px;height:64px}
+@media(min-width:640px){.jody-badge{display:flex}}
+.jody-caption{margin-top:16px;font-size:10px;line-height:1.6;letter-spacing:.18em;text-transform:uppercase;color:rgba(89,67,84,.55)}
+.jody-title{margin-top:32px;font-size:clamp(2.3rem,4.6vw,4.3rem)}
+.jody-title em{color:var(--plum)}
+.jody-copy .lede{margin-top:32px;max-width:33rem}
+.jody-copy .lede+.lede{margin-top:18px}
+.jody-place{margin-top:32px;display:flex;align-items:center;gap:12px;color:var(--aubergine);font-size:.9rem}
+.jody-place svg{width:16px;height:16px;flex:0 0 auto;color:var(--champagne)}
+.jody-actions{margin-top:36px;display:flex;flex-direction:column;gap:14px}
+.jody-sign{margin-top:36px;font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--plum)}
+.jody-role{margin-top:4px;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(89,67,84,.6)}
+@media(min-width:640px){.jody-actions{flex-direction:row;align-items:center;gap:24px}}
+
+/* ---------- treatment directory ---------- */
+.directory{background:var(--porcelain)}
+.dir-search{margin-top:48px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(33,26,27,.2);padding-bottom:12px}
+.dir-search>svg{width:20px;height:20px;flex:0 0 auto;color:rgba(89,67,84,.6)}
+.dir-search input{width:100%;background:none;border:0;padding:8px 0;font-family:var(--serif);font-size:1.15rem;outline:none}
+.dir-search input::placeholder{font-family:var(--sans);font-size:.95rem;letter-spacing:.03em;color:rgba(89,67,84,.45)}
+.dir-search input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.dir-clear{width:36px;height:36px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:rgba(89,67,84,.6);font-size:13px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:24px 0 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid rgba(33,26,27,.15);padding:12px 16px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--aubergine);transition:border-color .3s,background .3s,color .3s}
+.chip b{font-weight:400;margin-left:8px;color:rgba(89,67,84,.45)}
+.chip:hover{border-color:rgba(33,26,27,.5);color:var(--espresso)}
+.chip.is-active{background:var(--espresso);border-color:var(--espresso);color:var(--ivory)}
+.chip.is-active b{color:var(--champagne)}
+.dir-bar{margin-top:32px;padding-bottom:16px;border-bottom:1px solid rgba(33,26,27,.1);display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.dir-count{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(89,67,84,.6)}
+.dir-reset{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--aubergine);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:4px}
+.dir-list{display:grid}
+@media(min-width:1024px){.dir-list{grid-template-columns:1fr 1fr;column-gap:56px}}
+.dir-row{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:20px 0;border-bottom:1px solid rgba(33,26,27,.1)}
+.dir-row-cat{display:block;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--champagne)}
+.dir-row-name{display:block;margin-top:6px;font-family:var(--serif);font-size:1.3rem;line-height:1.25;color:var(--espresso);transition:color .3s}
+.dir-row:hover .dir-row-name{color:var(--plum)}
+.dir-row-right{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.dir-row-price{font-family:var(--serif);font-size:1.1rem;color:var(--plum)}
+.dir-row-arrow{font-size:12px;color:rgba(89,67,84,.3);transition:transform .3s,color .3s}
+.dir-row:hover .dir-row-arrow{color:var(--champagne);transform:translate(2px,-2px)}
+.dir-empty{padding:64px 0;text-align:center}
+.dir-empty h3{font-family:var(--serif);font-weight:300;font-size:1.6rem}
+.dir-empty p{margin:12px auto 0;max-width:26rem;font-size:.92rem;line-height:1.7;color:var(--aubergine)}
+.dir-empty .acts{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:14px}
+@media(min-width:640px){.dir-empty .acts{flex-direction:row;justify-content:center}}
+.dir-cta{margin-top:56px;display:flex;flex-direction:column;gap:24px;background:var(--ivory);border:1px solid rgba(33,26,27,.12);padding:32px 24px}
+@media(min-width:640px){.dir-cta{flex-direction:row;align-items:center;justify-content:space-between;padding:34px 36px}}
+.dir-cta h3{font-family:var(--serif);font-weight:300;font-size:1.5rem}
+.dir-cta p{margin-top:8px;max-width:32rem;font-size:.9rem;line-height:1.7;color:var(--aubergine)}
+.dir-note{margin-top:24px;font-size:11px;line-height:1.7;color:rgba(89,67,84,.55)}
+
+/* ---------- treatment detail ---------- */
+.detail{position:fixed;inset:0;z-index:90;display:none}
+.detail.is-open{display:block}
+.detail-backdrop{position:absolute;inset:0;width:100%;height:100%;background:rgba(33,26,27,.55);cursor:default;animation:fadeIn .35s ease both}
+.detail-panel{position:absolute;left:0;right:0;bottom:0;max-height:90svh;overflow-y:auto;background:var(--porcelain);animation:sheetUp .55s var(--ease) both}
+@media(min-width:640px){.detail-panel{top:0;bottom:0;left:auto;right:0;width:30rem;max-height:none;animation:drawerIn .55s var(--ease) both}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes drawerIn{from{transform:translateX(100%)}to{transform:none}}
+.detail-top{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 24px 0}
+@media(min-width:640px){.detail-top{padding:36px 36px 0}}
+.detail-close{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(33,26,27,.15);font-size:14px}
+.detail-body{padding:24px 24px 40px}
+@media(min-width:640px){.detail-body{padding:24px 36px 48px}}
+.detail-cat{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--champagne)}
+.detail-title{margin-top:14px;font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.05}
+.detail-price{margin-top:18px;display:flex;align-items:baseline;gap:16px}
+.detail-price span{font-family:var(--serif);font-size:1.8rem;color:var(--plum)}
+.detail-price i{flex:1;height:1px;background:rgba(183,168,159,.5)}
+.detail-summary{margin-top:26px;font-size:.95rem;line-height:1.8;color:var(--aubergine)}
+.detail-areas{margin-top:30px}
+.detail-areas h4,.detail-note h4{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(89,67,84,.6);font-weight:400}
+.area-tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.area-tags span{border:1px solid rgba(33,26,27,.15);padding:6px 12px;font-size:11px;color:var(--aubergine)}
+.detail-note{margin-top:30px;border-left:1px solid var(--champagne);padding-left:16px}
+.detail-note p{margin-top:8px;font-size:.85rem;line-height:1.7;color:rgba(89,67,84,.9)}
+.detail-actions{margin-top:36px;display:grid;gap:12px}
+.detail-fine{margin-top:22px;font-size:11px;line-height:1.7;color:rgba(89,67,84,.6)}
+
+/* ---------- facial editorial ---------- */
+.facials{background:var(--espresso);color:var(--ivory);padding:96px 0}
+@media(min-width:640px){.facials{padding:128px 0}}
+.facials-grid{display:grid;gap:56px;align-items:center}
+@media(min-width:1024px){.facials-grid{grid-template-columns:repeat(12,1fr);gap:64px}.facials-visual{grid-column:span 6}.facials-copy{grid-column:8/span 5}}
+.facials-figure{position:relative}
+.facials-plate{aspect-ratio:3/4;overflow:hidden}
+@media(min-width:640px){.facials-plate{aspect-ratio:4/5}}
+.facials-plate img{width:100%;height:100%;object-fit:cover}
+.facials-badge{position:absolute;left:24px;right:24px;bottom:-24px;background:rgba(33,26,27,.92);border:1px solid rgba(199,178,154,.3);padding:16px 20px}
+@media(min-width:640px){.facials-badge{right:auto;left:32px;max-width:19rem}}
+.facials-badge .eyebrow{color:var(--champagne)}
+.facials-badge p:last-child{margin-top:8px;font-family:var(--serif);font-size:1.15rem;line-height:1.35;color:var(--ivory)}
+.facials-title{margin-top:26px;font-size:clamp(2.3rem,4.4vw,4.1rem);color:var(--ivory)}
+.facials-title em{color:var(--champagne)}
+.facials-lede{margin-top:30px;max-width:30rem;font-size:.98rem;line-height:1.85;color:rgba(248,245,240,.7)}
+.facials-list{margin-top:34px;border-top:1px solid rgba(248,245,240,.15)}
+.facials-list li{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid rgba(248,245,240,.15)}
+.facials-list .name{font-family:var(--serif);font-size:1.12rem;color:rgba(248,245,240,.92)}
+.facials-list .price{flex:0 0 auto;font-family:var(--serif);font-size:1.05rem;color:var(--champagne)}
+.facials-actions{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;gap:22px}
+.facials-actions .link-underline{color:rgba(248,245,240,.7)}
+
+/* ---------- treatment information ---------- */
+.info{background:var(--plum);color:var(--ivory);padding:96px 0}
+@media(min-width:640px){.info{padding:128px 0}}
+.info-grid{display:grid;gap:28px}
+@media(min-width:1024px){.info-grid{grid-template-columns:repeat(12,1fr);align-items:end}.info-head{grid-column:span 7}.info-side{grid-column:9/span 4}}
+.info-title{margin-top:26px;font-size:clamp(2.3rem,4.6vw,4.3rem);color:var(--ivory)}
+.info-title em{color:var(--champagne)}
+.info-side p{font-size:.95rem;line-height:1.8;color:rgba(248,245,240,.65)}
+.info-blocks{margin-top:56px;display:grid;gap:0;border-top:1px solid rgba(248,245,240,.15)}
+@media(min-width:640px){.info-blocks{grid-template-columns:repeat(3,1fr)}}
+.info-block{padding:30px 0;border-bottom:1px solid rgba(248,245,240,.15)}
+@media(min-width:640px){.info-block{border-bottom:0;border-right:1px solid rgba(248,245,240,.15);padding:30px 28px}.info-block:first-child{padding-left:0}.info-block:last-child{border-right:0}}
+.info-block h3{margin-top:14px;font-family:var(--serif);font-weight:300;font-size:1.5rem;line-height:1.25;color:var(--ivory)}
+.info-block p{margin-top:12px;font-size:.88rem;line-height:1.8;color:rgba(248,245,240,.6)}
+.info-enquiry{margin-top:48px;border:1px solid rgba(199,178,154,.28);padding:30px 24px;display:flex;flex-direction:column;gap:24px}
+@media(min-width:640px){.info-enquiry{flex-direction:row;align-items:center;justify-content:space-between;padding:32px 36px}}
+.info-enquiry .quote{margin-top:12px;max-width:42rem;font-family:var(--serif);font-size:1.35rem;line-height:1.4;color:rgba(248,245,240,.92)}
+.info-enquiry .acts{display:flex;flex-direction:column;gap:12px;flex:0 0 auto}
+@media(min-width:640px){.info-enquiry .acts{flex-direction:row;align-items:center}}
+
+/* ---------- bring a bestie ---------- */
+.bestie{background:var(--ivory)}
+.bestie-grid{display:grid}
+@media(min-width:1024px){.bestie-grid{grid-template-columns:repeat(12,1fr)}.bestie-visual{grid-column:span 5}.bestie-copy{grid-column:7/span 6;display:flex;flex-direction:column;justify-content:center}}
+.bestie-plate{position:relative;height:46svh;overflow:hidden}
+@media(min-width:1024px){.bestie-plate{height:100%;min-height:42rem}}
+.bestie-plate img{width:100%;height:100%;object-fit:cover}
+.bestie-plate::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(33,26,27,.5),transparent 62%)}
+@media(min-width:1024px){.bestie-plate::after{background:linear-gradient(to right,transparent,rgba(33,26,27,.14))}}
+.bestie-copy{padding:80px 24px}
+@media(min-width:640px){.bestie-copy{padding:80px 40px}}
+@media(min-width:1024px){.bestie-copy{padding:112px 64px 112px 0}}
+.bestie-title{margin-top:26px;font-size:clamp(2.3rem,4.6vw,4.2rem)}
+.bestie-title em{color:var(--plum)}
+.bestie-lede{margin-top:30px;max-width:30rem}
+.bestie-offers{margin-top:34px;border-top:1px solid rgba(33,26,27,.15)}
+.bestie-offers li{display:flex;align-items:baseline;justify-content:space-between;gap:22px;padding:20px 0;border-bottom:1px solid rgba(33,26,27,.15)}
+.bestie-offers .pp{display:block;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--champagne)}
+.bestie-offers .name{display:block;margin-top:6px;font-family:var(--serif);font-size:1.2rem;line-height:1.3}
+.bestie-offers .price{flex:0 0 auto;font-family:var(--serif);font-size:1.15rem;color:var(--plum)}
+.bestie-offers .price small{font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(89,67,84,.6);margin-left:4px}
+.bestie-actions{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+@media(min-width:640px){.bestie-actions{flex-direction:row;align-items:center;gap:24px}}
+.bestie-fine{margin-top:26px;font-size:11px;line-height:1.7;color:rgba(89,67,84,.55)}
+
+/* ---------- gallery ---------- */
+.gallery{background:var(--porcelain)}
+.gal-grid{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(min-width:1024px){.gal-grid{grid-template-columns:repeat(12,1fr);gap:24px}}
+.gal-item figure{margin:0}
+.gal-frame{position:relative;overflow:hidden;background:rgba(33,26,27,.06)}
+.gal-frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.gal-item:hover .gal-frame img{transform:scale(1.04)}
+.gal-cap{margin-top:16px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.gal-cap strong{font-family:var(--serif);font-weight:400;font-size:1.1rem}
+.gal-cap span{display:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(89,67,84,.5)}
+@media(min-width:640px){.gal-cap span{display:block}}
+.g1{grid-column:span 2}.g1 .gal-frame{aspect-ratio:4/5}
+.g2{grid-column:span 1}.g2 .gal-frame{aspect-ratio:3/4}
+.g3{grid-column:span 1}.g3 .gal-frame{aspect-ratio:1/1}
+.g4{grid-column:span 2}.g4 .gal-frame{aspect-ratio:3/2}
+@media(min-width:1024px){.g1{grid-column:span 6}.g2{grid-column:9/span 4;margin-top:64px}.g3{grid-column:2/span 4;margin-top:-64px}.g4{grid-column:8/span 5;margin-top:56px}}
+
+/* ---------- reviews ---------- */
+.reviews{background:var(--ivory)}
+.reviews-grid{display:grid;gap:44px}
+@media(min-width:1024px){.reviews-grid{grid-template-columns:repeat(12,1fr);gap:64px}.reviews-side{grid-column:span 4}.reviews-stage{grid-column:6/span 7}}
+.review-nav{margin-top:34px;display:flex;align-items:center;gap:12px}
+.rev-btn{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(33,26,27,.2);font-size:15px;transition:.3s}
+.rev-btn:hover{background:var(--espresso);color:var(--ivory)}
+.rev-count{margin-left:8px;font-size:9px;letter-spacing:.24em;color:rgba(89,67,84,.55)}
+.review-stage-inner{position:relative;border-top:1px solid rgba(33,26,27,.15);padding-top:38px}
+.quote-mark{position:absolute;top:-18px;left:0;font-family:var(--serif);font-size:6rem;line-height:1;color:rgba(199,178,154,.45)}
+.review-quote{min-height:16rem;font-family:var(--serif);font-weight:300;font-size:clamp(1.35rem,2.5vw,2.1rem);line-height:1.45;color:var(--espresso);white-space:pre-line}
+@media(min-width:640px){.review-quote{min-height:14rem}}
+.review-attr{margin-top:28px;display:flex;align-items:center;gap:12px}
+.review-attr .rule{width:32px}
+.review-attr span{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--aubergine)}
+.review-names{margin-top:36px;display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(33,26,27,.1);padding-top:22px}
+.review-names button{border:1px solid rgba(33,26,27,.15);padding:10px 16px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--aubergine);transition:.3s}
+.review-names button:hover{border-color:rgba(33,26,27,.45);color:var(--espresso)}
+.review-names button.is-active{background:var(--espresso);border-color:var(--espresso);color:var(--ivory)}
+
+/* ---------- booking ---------- */
+.booking{position:relative;overflow:hidden;background:var(--espresso);color:var(--ivory);padding:96px 0}
+@media(min-width:640px){.booking{padding:128px 0}}
+.booking-mark{position:absolute;top:50%;right:-96px;transform:translateY(-50%);width:34rem;height:34rem;color:rgba(199,178,154,.1);display:none}
+.booking-mark svg{width:100%;height:100%}
+@media(min-width:1024px){.booking-mark{display:block}}
+.booking-inner{position:relative;max-width:46rem}
+.booking-title{margin-top:30px;font-size:clamp(2.5rem,5.3vw,5rem);color:var(--ivory)}
+.booking-title em{color:var(--champagne)}
+.booking-lede{margin-top:32px;max-width:32rem;font-size:1rem;line-height:1.85;color:rgba(248,245,240,.7)}
+.booking-actions{margin-top:40px;display:flex;flex-direction:column;gap:12px}
+@media(min-width:640px){.booking-actions{flex-direction:row;align-items:center}}
+.booking-meta{margin-top:44px;display:grid;gap:24px;border-top:1px solid rgba(248,245,240,.15);padding-top:28px}
+@media(min-width:640px){.booking-meta{grid-template-columns:1fr 1fr}}
+.booking-meta h4{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(199,178,154,.7);font-weight:400}
+.booking-meta a{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-family:var(--serif);font-size:1.35rem;color:var(--ivory)}
+.booking-meta a:hover{color:var(--champagne)}
+.booking-meta p{margin-top:8px;font-size:.92rem;line-height:1.7;color:rgba(248,245,240,.7)}
+.booking-meta p span{display:block;color:rgba(248,245,240,.45)}
+.booking-fine{margin-top:38px;max-width:34rem;font-size:11px;line-height:1.7;color:rgba(248,245,240,.4)}
+
+/* ---------- contact ---------- */
+.contact{background:var(--porcelain)}
+.contact-grid{display:grid;gap:48px}
+@media(min-width:1024px){.contact-grid{grid-template-columns:repeat(12,1fr);gap:64px}.contact-copy{grid-column:span 5}.contact-list{grid-column:7/span 6}}
+.contact-title{margin-top:26px;font-size:clamp(2.3rem,4.4vw,4rem)}
+.contact-title em{color:var(--plum)}
+.contact-lede{margin-top:30px;max-width:26rem}
+.contact-actions{margin-top:34px;display:flex;flex-direction:column;gap:12px}
+@media(min-width:640px){.contact-actions{flex-direction:row;flex-wrap:wrap;align-items:center}}
+.contact-arrive{margin-top:34px;border:1px solid rgba(33,26,27,.12);background:var(--ivory);padding:24px}
+.contact-arrive h4{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(89,67,84,.6);font-weight:400}
+.contact-arrive p{margin-top:12px;font-size:.9rem;line-height:1.8;color:var(--aubergine)}
+.contact-arrive .link-underline{margin-top:16px}
+.contact-rows{border-top:1px solid rgba(33,26,27,.15)}
+.contact-row{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;padding:24px 0;border-bottom:1px solid rgba(33,26,27,.15)}
+.contact-row-main{display:flex;align-items:flex-start;gap:18px}
+.contact-row-main svg{width:16px;height:16px;margin-top:4px;flex:0 0 auto;color:var(--champagne)}
+.contact-row h4{font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:rgba(89,67,84,.55);font-weight:400}
+.contact-row .value{margin-top:6px;font-family:var(--serif);font-size:1.2rem;line-height:1.3;color:var(--espresso)}
+@media(min-width:640px){.contact-row .value{font-size:1.35rem}}
+.contact-row .detail{margin-top:4px;font-size:.82rem;color:rgba(89,67,84,.65)}
+.contact-row .go{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-top:4px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(89,67,84,.6);transition:color .3s}
+.contact-row:hover .go{color:var(--espresso)}
+.contact-row .go span{transition:transform .3s}
+.contact-row:hover .go span{transform:translate(2px,-2px)}
+@media(max-width:639px){.contact-row .go .lbl{display:none}}
+.contact-social{margin-top:32px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.contact-social a{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--aubergine)}
+.contact-social a:hover{color:var(--espresso)}
+.contact-social i{width:1px;height:12px;background:rgba(183,168,159,.6)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--espresso);color:var(--ivory);padding-top:80px}
+.footer-top{display:grid;gap:48px;border-bottom:1px solid rgba(248,245,240,.12);padding-bottom:56px}
+@media(min-width:1024px){.footer-top{grid-template-columns:repeat(12,1fr);gap:32px}.f-brand{grid-column:span 4}.f-explore{grid-column:6/span 2}.f-treat{grid-column:8/span 3}.f-contact{grid-column:11/span 2}}
+.f-brand-head{display:flex;align-items:center;gap:16px}
+.f-brand-head svg{width:56px;height:56px;color:var(--champagne);flex:0 0 auto}
+.f-brand-name{font-family:var(--serif);font-size:1.2rem;letter-spacing:.32em;text-transform:uppercase}
+.f-brand-sub{margin-top:8px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(199,178,154,.7)}
+.f-brand p{margin-top:26px;max-width:22rem;font-size:.88rem;line-height:1.85;color:rgba(248,245,240,.55)}
+.f-social{margin-top:26px;display:flex;gap:10px}
+.f-social a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(248,245,240,.2);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:rgba(248,245,240,.8);transition:.3s}
+.f-social a:hover{border-color:var(--champagne);color:var(--champagne)}
+.f-col h4{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(199,178,154,.7);font-weight:400}
+.f-col ul,.f-links{margin-top:18px;display:grid;gap:12px}
+.f-col a,.f-col button{font-size:.88rem;color:rgba(248,245,240,.65);transition:color .3s}
+.f-col a:hover,.f-col button:hover{color:var(--ivory)}
+.f-address{margin-top:18px;font-size:.88rem;line-height:1.9;color:rgba(248,245,240,.65)}
+.f-address span{display:block;margin-top:4px;color:rgba(248,245,240,.4)}
+.f-book{display:inline-flex;align-items:center;gap:8px;margin-top:22px;border:1px solid rgba(199,178,154,.5);padding:12px 20px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--champagne);transition:.3s}
+.f-book:hover{background:var(--champagne);color:var(--espresso)}
+.footer-bottom{padding:32px 0}
+.footer-bottom .fine{max-width:64rem;font-size:10.5px;line-height:1.75;color:rgba(248,245,240,.35)}
+.footer-bar{margin-top:24px;border-top:1px solid rgba(248,245,240,.1);padding-top:24px;display:flex;flex-direction:column;gap:12px}
+@media(min-width:640px){.footer-bar{flex-direction:row;align-items:center;justify-content:space-between}}
+.footer-bar p{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(248,245,240,.35)}
+
+/* ---------- dock ---------- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:45;border-top:1px solid rgba(33,26,27,.15);background:rgba(253,252,249,.96);backdrop-filter:blur(12px);transform:translateY(100%);transition:transform .5s var(--ease)}
+.dock.is-visible{transform:none}
+.dock-inner{display:flex;align-items:center;gap:8px;padding:12px 16px}
+.dock .btn{flex:1;padding:14px 16px}
+.dock-icon{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(33,26,27,.25);font-size:15px;flex:0 0 auto}
+@media(min-width:1024px){
+  .dock{left:28px;right:auto;bottom:28px;border:1px solid rgba(33,26,27,.12);box-shadow:0 10px 40px -18px rgba(33,26,27,.45);transform:translateY(16px);opacity:0;transition:transform .5s var(--ease),opacity .5s}
+  .dock.is-visible{transform:none;opacity:1}
+  .dock-inner{padding:0;gap:0}
+  .dock .btn{flex:0 0 auto;padding:16px 24px;font-size:10px}
+  .dock-sep{width:1px;align-self:stretch;background:rgba(33,26,27,.12)}
+  .dock-call{display:flex;align-items:center;padding:16px 20px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--aubergine)}
+  .dock-call:hover{background:var(--ivory)}
+  .dock-icon{display:none}
+}
+
+/* ---------- concierge ---------- */
+.concierge-fab{position:fixed;right:16px;bottom:88px;z-index:65;display:flex;align-items:center;gap:12px;border:1px solid rgba(199,178,154,.5);background:var(--espresso);color:var(--ivory);padding:12px 16px;box-shadow:0 18px 50px -20px rgba(33,26,27,.7);transition:transform .45s var(--ease),opacity .45s,background .3s}
+.concierge-fab svg{width:32px;height:32px;color:var(--champagne);flex:0 0 auto}
+.concierge-fab .lbl{display:none}
+.concierge-fab .lbl b{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--champagne);font-weight:400}
+.concierge-fab .lbl span{display:block;margin-top:6px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,245,240,.7)}
+@media(min-width:640px){.concierge-fab .lbl{display:block}}
+@media(min-width:1024px){.concierge-fab{right:28px;bottom:28px}}
+.concierge-fab:hover{background:var(--plum)}
+.concierge-fab.is-hidden{opacity:0;transform:translateY(12px);pointer-events:none}
+.concierge{position:fixed;inset:0;z-index:95;display:none;flex-direction:column;background:var(--porcelain)}
+.concierge.is-open{display:flex}
+@media(min-width:640px){.concierge{inset:auto 28px 28px auto;height:min(40rem,84vh);width:27rem;border:1px solid rgba(33,26,27,.15);box-shadow:0 30px 90px -30px rgba(33,26,27,.55)}}
+.concierge-head{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--espresso);padding:16px 20px}
+.concierge-head-in{display:flex;align-items:center;gap:12px;min-width:0}
+.concierge-head svg{width:36px;height:36px;color:var(--champagne);flex:0 0 auto}
+.concierge-title{font-family:var(--serif);font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory)}
+.concierge-sub{margin-top:4px;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:rgba(199,178,154,.72)}
+.concierge-close{width:40px;height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border:1px solid rgba(248,245,240,.25);color:var(--ivory);font-size:14px}
+.concierge-log{flex:1;overflow-y:auto;padding:22px 20px;display:flex;flex-direction:column;gap:16px}
+.msg{max-width:92%;font-size:.88rem;line-height:1.7;white-space:pre-line}
+.msg-bot{background:var(--ivory);border-left:1px solid var(--champagne);padding:14px 16px;color:var(--espresso);align-self:flex-start}
+.msg-user{margin-left:auto;background:var(--espresso);color:var(--ivory);padding:12px 16px;max-width:85%}
+.msg-actions,.msg-sugg{display:flex;flex-wrap:wrap;gap:8px}
+.msg-actions button{display:inline-flex;align-items:center;gap:8px;min-height:40px;border:1px solid rgba(33,26,27,.2);padding:9px 14px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--espresso);transition:.3s}
+.msg-actions button:hover{background:var(--espresso);border-color:var(--espresso);color:var(--ivory)}
+.msg-sugg button{border:1px solid rgba(199,178,154,.6);padding:9px 12px;font-size:11px;line-height:1.35;color:var(--aubergine);transition:.3s}
+.msg-sugg button:hover{border-color:var(--espresso);color:var(--espresso)}
+.typing{align-self:flex-start;display:flex;align-items:center;gap:6px;background:var(--ivory);border-left:1px solid var(--champagne);padding:16px}
+.typing i{width:6px;height:6px;border-radius:50%;background:rgba(89,67,84,.5);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.14s}
+.typing i:nth-child(3){animation-delay:.28s}
+@keyframes blink{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.concierge-form{border-top:1px solid rgba(33,26,27,.12);background:var(--ivory);padding:10px 14px}
+.concierge-form .row{display:flex;align-items:center;gap:8px}
+.concierge-form input{flex:1;min-height:44px;background:none;border:0;padding:0 8px;font-size:.9rem;outline:none}
+.concierge-form input::placeholder{color:rgba(89,67,84,.45)}
+.concierge-send{width:44px;height:44px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:var(--espresso);color:var(--ivory);font-size:15px}
+.concierge-send:disabled{opacity:.4}
+.concierge-fine{margin-top:4px;padding:0 8px;font-size:9px;line-height:1.5;color:rgba(89,67,84,.45)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-mono"><svg viewBox="0 0 100 100" fill="none" role="img" aria-label="Luxe &amp; Lush JB monogram"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".7" opacity=".75"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".4" opacity=".4"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="currentColor">JB</text><line x1="50" y1="16" x2="50" y2="24" stroke="currentColor" stroke-width=".6" opacity=".6"/><line x1="50" y1="76" x2="50" y2="84" stroke="currentColor" stroke-width=".6" opacity=".6"/></svg></div>
+  <p class="intro-word">Luxe &amp; Lush</p>
+  <span class="intro-line"></span>
+  <p class="intro-sub">Aesthetics · Est. 2025</p>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="Luxe &amp; Lush Aesthetics, back to top">
+      <span class="brand-mono"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".9" opacity=".7"/><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="currentColor">JB</text></svg></span>
+      <span><span class="brand-name">Luxe &amp; Lush</span><span class="brand-sub">Aesthetics · Est. 2025</span></span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#experience">The Experience</a>
+      <a href="#jody">Meet Jody</a>
+      <a href="#treatments">Treatments</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-book" href="#book" data-booking>Book <span class="arw">↗</span></a>
+      <button class="menu-toggle" type="button" id="menuOpen" aria-label="Open menu" aria-expanded="false">
+        <span class="burger"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mm-top">
+    <span class="mm-brand"><span class="brand-name">Luxe &amp; Lush</span><span class="brand-sub">Aesthetics · Est. 2025</span></span>
+    <button class="mm-close" type="button" id="menuClose" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="mm-links" aria-label="Mobile navigation">
+    <a href="#experience">The Experience<span>01</span></a>
+    <a href="#jody">Meet Jody<span>02</span></a>
+    <a href="#treatments">Treatments<span>03</span></a>
+    <a href="#reviews">Reviews<span>04</span></a>
+    <a href="#contact">Contact<span>05</span></a>
+  </nav>
+  <div class="mm-foot">
+    <a class="btn btn-champ" href="#book" data-booking>Book your appointment <span class="arw">↗</span></a>
+    <div class="mm-pair">
+      <a href="#" data-whatsapp target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" data-phone>Call Jody</a>
+    </div>
+    <p class="mm-address">19 Post House Wynd, Darlington, DL3 7LP</p>
+  </div>
+</div>
+
+<section class="hero" id="top">
+  <div class="hero-art">
+    <img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/a432c1951_generated_792495a3.jpg" alt="Champagne silk campaign art direction for Luxe &amp; Lush Aesthetics" />
+    <p class="hero-pin">◍ Darlington · North East</p>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow hero-label eyebrow-line"><span class="rule"></span>Darlington · North East England</p>
+      <h1 class="display hero-title">A more beautiful<br />way to<br /><em>feel like you.</em></h1>
+      <p class="hero-sub">Thoughtfully selected beauty and aesthetic treatments, a personal approach and a welcoming space to make time for yourself.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#book" data-booking>Book your appointment <span class="arw">↗</span></a>
+        <a class="link-underline" href="#experience">Discover the experience</a>
+      </div>
+    </div>
+    <div class="hero-foot">
+      <div class="meta"><span>Est. 2025</span><span>By appointment</span><span>Face-to-face consultations available</span></div>
+      <a class="scroll-cue" href="#experience" aria-label="Scroll to the experience">Scroll<i></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section statement" id="experience">
+  <div class="wrap statement-grid">
+    <div class="statement-main">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>The house</p>
+      <h2 class="display statement-title">Beauty is personal. <em>Your experience</em> should be too.</h2>
+      <div class="statement-body">
+        <p class="lede">Luxe &amp; Lush Aesthetics offers a range of beauty and aesthetic treatments in a welcoming, personal setting in Darlington. The menu brings together facial treatments, skin and aesthetic services, vitamin treatments, semi-permanent makeup and paired offers — all presented with the clinic’s listed prices, so you can consider what suits you before you get in touch.</p>
+        <p class="lede">Appointments are kept personal. Jody looks after every client herself, from your first enquiry through to the treatment room, and is always happy to talk through a question before you decide.</p>
+      </div>
+      <div class="statement-meta"><span>33 treatments listed</span><span>Darlington town centre</span><span>Est. 2025</span></div>
+    </div>
+    <div class="statement-side">
+      <div class="principles">
+        <div class="principle"><b>01</b><div><h3>A personal approach</h3><p>Treatments are discussed individually, so you always know what is being considered and why.</p></div></div>
+        <div class="principle"><b>02</b><div><h3>A considered menu</h3><p>Facial treatments, skin and aesthetic services, presented clearly with the clinic’s listed pricing.</p></div></div>
+        <div class="principle"><b>03</b><div><h3>A welcoming space</h3><p>A calm, private setting above Luminous Hair in the centre of Darlington.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="jody">
+  <div class="wrap jody-grid">
+    <div class="jody-visual">
+      <div class="jody-figure">
+        <div class="jody-plate"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/6f49973a8_generated_8deff947.png" alt="Softly lit detail of the Luxe &amp; Lush treatment setting" loading="lazy" /></div>
+        <div class="jody-badge"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".7" opacity=".75"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".4" opacity=".4"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="currentColor">JB</text></svg></div>
+        <p class="jody-caption">Editorial imagery — Jody’s own clinic photography can replace this at any time</p>
+      </div>
+    </div>
+    <div class="jody-copy">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Meet the owner</p>
+      <h2 class="display jody-title">The person behind <em>Luxe &amp; Lush.</em></h2>
+      <p class="lede">Luxe &amp; Lush Aesthetics was established in 2025 and is owned and run by Jody Barker. The clinic is based at 19 Post House Wynd in Darlington, above Luminous Hair.</p>
+      <p class="lede">Clients describe Jody as friendly, knowledgeable and reassuring — someone who makes an appointment feel personal from the moment you arrive. If you have a question before booking, she is happy to hear from you directly.</p>
+      <p class="jody-place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6.09 7-11a7 7 0 1 0-14 0c0 4.91 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>19 Post House Wynd, Darlington, DL3 7LP, above Luminous Hair</p>
+      <div class="jody-actions">
+        <a class="btn btn-solid" href="#" data-whatsapp target="_blank" rel="noopener">Speak with Jody <span class="arw">↗</span></a>
+        <a class="link-underline" href="#book" data-booking>Book your appointment</a>
+      </div>
+      <p class="jody-sign">Jody</p>
+      <p class="jody-role">Owner · Luxe &amp; Lush Aesthetics</p>
+    </div>
+  </div>
+</section>
+
+<section class="section directory" id="treatments">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-main">
+        <p class="eyebrow eyebrow-line"><span class="rule"></span>The menu</p>
+        <h2 class="display h-lg">Find your <em>treatment.</em></h2>
+      </div>
+      <div class="head-side"><p class="lede">Search the menu or browse by collection. Every entry shows the price as listed by the clinic — open any treatment for the details and a direct booking link.</p></div>
+    </div>
+
+    <div class="dir-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      <input id="dirSearch" type="search" placeholder="Search treatments — dermaplaning, filler, brows, B12…" aria-label="Search treatments" autocomplete="off" />
+      <button class="dir-clear" type="button" id="dirClear" aria-label="Clear search" hidden>✕</button>
+    </div>
+
+    <div class="chips" id="chips" role="group" aria-label="Treatment collections"></div>
+    <div class="dir-bar"><p class="dir-count" id="dirCount">33 treatments listed</p><button class="dir-reset" type="button" id="dirReset" hidden>Reset</button></div>
+    <div id="dirResults" aria-live="polite"></div>
+
+    <div class="dir-cta">
+      <div>
+        <h3>Not sure what you’re looking for?</h3>
+        <p>Ask the concierge about a treatment, or message Jody — she can talk you through the menu and any consultation requirement.</p>
+      </div>
+      <button class="btn btn-outline" type="button" data-open-concierge>Ask the concierge</button>
+    </div>
+    <p class="dir-note">Prices shown are the clinic’s listed menu prices for 33 treatments. Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision.</p>
+  </div>
+</section>
+
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="Treatment details" aria-hidden="true">
+  <button class="detail-backdrop" type="button" id="detailClose" aria-label="Close treatment details"></button>
+  <div class="detail-panel">
+    <div class="detail-top">
+      <span class="detail-cat" id="detailCat"></span>
+      <button class="detail-close" type="button" id="detailX" aria-label="Close">✕</button>
+    </div>
+    <div class="detail-body">
+      <h3 class="detail-title" id="detailTitle"></h3>
+      <div class="detail-price"><span id="detailPrice"></span><i></i></div>
+      <p class="detail-summary" id="detailSummary"></p>
+      <div class="detail-areas" id="detailAreas" hidden><h4>Areas listed</h4><div class="area-tags" id="detailTags"></div></div>
+      <div class="detail-note" id="detailNote" hidden><h4>Good to know</h4><p id="detailNoteText"></p></div>
+      <div class="detail-actions">
+        <a class="btn btn-solid" href="#book" data-booking>Book your appointment <span class="arw">↗</span></a>
+        <a class="btn btn-outline" href="#" data-whatsapp target="_blank" rel="noopener" id="detailEnquire">Enquire on WhatsApp</a>
+      </div>
+      <p class="detail-fine">Menu prices are as listed by the clinic. Suitability and any consultation requirement are confirmed individually before treatment.</p>
+    </div>
+  </div>
+</div>
+
+<section class="facials" id="facials">
+  <div class="wrap facials-grid">
+    <div class="facials-visual">
+      <div class="facials-figure">
+        <div class="facials-plate"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/7740e94ad_generated_0e0caa48.png" alt="Close editorial detail of natural skin texture in warm light" loading="lazy" /></div>
+        <div class="facials-badge">
+          <p class="eyebrow eyebrow-sm">The facial menu</p>
+          <p>Seven facials, one considered approach to skin.</p>
+        </div>
+      </div>
+    </div>
+    <div class="facials-copy">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Facials</p>
+      <h2 class="display facials-title">Time set aside <em>for your skin.</em></h2>
+      <p class="facials-lede">From a dermaplaning facial to a luxury ELEMIS facial, the facial menu is arranged so you can choose by treatment and by price. Jody can confirm the clinic’s current treatment details and what is included before you book.</p>
+      <ul class="facials-list">
+        <li><span class="name">Dermaplaning Facial</span><span class="price">£30</span></li>
+        <li><span class="name">Luxury Dermaplane Facial</span><span class="price">£40</span></li>
+        <li><span class="name">Jelly Mask Facial</span><span class="price">£40</span></li>
+        <li><span class="name">Microneedling Express Facial</span><span class="price">£40</span></li>
+        <li><span class="name">Luxury Microneedling Facial</span><span class="price">£60</span></li>
+        <li><span class="name">Chemical Skin Peel</span><span class="price">£50</span></li>
+        <li><span class="name">Luxury ELEMIS Facial</span><span class="price">£75</span></li>
+      </ul>
+      <div class="facials-actions">
+        <a class="btn btn-champ" href="#book" data-booking>Book a facial <span class="arw">↗</span></a>
+        <a class="link-underline" href="#treatments">Explore the full menu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="information">
+  <div class="wrap">
+    <div class="info-grid">
+      <div class="info-head">
+        <p class="eyebrow eyebrow-line"><span class="rule"></span>Before you book</p>
+        <h2 class="display info-title">Treatment information, <em>honestly given.</em></h2>
+      </div>
+      <div class="info-side"><p>A few things worth knowing before you enquire. If anything is unclear, Jody would rather answer a question beforehand than have you unsure on the day.</p></div>
+    </div>
+
+    <div class="info-blocks">
+      <div class="info-block">
+        <p class="eyebrow eyebrow-sm">Individual assessment</p>
+        <h3>Suitability is always personal</h3>
+        <p>Treatment suitability, appropriate quantities and any aftercare requirement are assessed individually. Nothing on this website replaces that assessment.</p>
+      </div>
+      <div class="info-block">
+        <p class="eyebrow eyebrow-sm">Consultation</p>
+        <h3>Some services need a consultation</h3>
+        <p>Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision. Please contact the clinic to enquire about the consultation process.</p>
+      </div>
+      <div class="info-block">
+        <p class="eyebrow eyebrow-sm">Expectations</p>
+        <h3>Honest about outcomes</h3>
+        <p>Treatment outcomes vary between individuals. Jody is happy to talk through realistic expectations and any questions before you decide to go ahead.</p>
+      </div>
+    </div>
+
+    <div class="info-enquiry">
+      <div>
+        <p class="eyebrow eyebrow-sm">Discreet enquiry</p>
+        <p class="quote">Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision. Please contact the clinic to enquire about the consultation process.</p>
+      </div>
+      <div class="acts">
+        <a class="btn btn-champ" href="#" data-whatsapp target="_blank" rel="noopener">Make an enquiry</a>
+        <a class="btn btn-ghost" href="#" data-email>Email the clinic <span class="arw">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bestie" id="bestie">
+  <div class="bestie-grid">
+    <div class="bestie-visual">
+      <div class="bestie-plate"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/9e5db436e_generated_925e5bdc.png" alt="Two champagne glasses toasting in warm candlelight" loading="lazy" /></div>
+    </div>
+    <div class="bestie-copy">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Bring a Bestie</p>
+      <h2 class="display bestie-title">Good company. <em>A little more luxe.</em></h2>
+      <p class="lede bestie-lede">Paired offers for two. Prices are shown per person, exactly as listed on the clinic menu — message Jody to check availability and to book you both in.</p>
+      <ul class="bestie-offers">
+        <li><div><span class="pp">Per person</span><span class="name">1ml Filler for You and a Friend</span></div><span class="price">£110<small>pp</small></span></li>
+        <li><div><span class="pp">Per person</span><span class="name">Microbladed Brows for You and a Friend</span></div><span class="price">£170<small>pp</small></span></li>
+        <li><div><span class="pp">Per person</span><span class="name">Microbladed Brows and 1ml Lips for You and a Friend</span></div><span class="price">£280<small>pp</small></span></li>
+      </ul>
+      <div class="bestie-actions">
+        <a class="btn btn-solid" href="#" data-whatsapp target="_blank" rel="noopener">Enquire about a paired booking <span class="arw">↗</span></a>
+        <a class="link-underline" href="#book" data-booking>Book online</a>
+      </div>
+      <p class="bestie-fine">Paired offers are subject to an individual suitability assessment for each person. Contact the clinic to confirm the current offer details.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section gallery" id="space">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-main">
+        <p class="eyebrow eyebrow-line"><span class="rule"></span>The experience</p>
+        <h2 class="display h-md">A space to <em>make time for yourself.</em></h2>
+      </div>
+      <div class="head-side"><p class="lede">A private room, a considered menu and a pace that isn’t rushed. These are editorial images from the Luxe &amp; Lush art direction — Jody’s own clinic photography can replace them at any time.</p></div>
+    </div>
+
+    <div class="gal-grid">
+      <div class="gal-item g1">
+        <figure>
+          <div class="gal-frame"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/3228da091_generated_e6d9e93d.png" alt="Ivory linen on a treatment bed in warm afternoon light" loading="lazy" /></div>
+          <figcaption class="gal-cap"><strong>The treatment room</strong><span>Calm, private, prepared for one client at a time</span></figcaption>
+        </figure>
+      </div>
+      <div class="gal-item g2">
+        <figure>
+          <div class="gal-frame"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/01f65d456_generated_d45f2d93.png" alt="Beauty instruments arranged on marble" loading="lazy" /></div>
+          <figcaption class="gal-cap"><strong>Considered details</strong><span>Precision tools, laid out and ready</span></figcaption>
+        </figure>
+      </div>
+      <div class="gal-item g3">
+        <figure>
+          <div class="gal-frame"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/8503fb04f_generated_0a1b7354.png" alt="Amber glass apothecary bottles in soft light" loading="lazy" /></div>
+          <figcaption class="gal-cap"><strong>The apothecary</strong><span>Products chosen for the treatment menu</span></figcaption>
+        </figure>
+      </div>
+      <div class="gal-item g4">
+        <figure>
+          <div class="gal-frame"><img src="https://media.base44.com/images/public/6af30b6b9862c6b2cfd6ce77/d9c6b3ca1_generated_53f09cf8.png" alt="Brass mirror and plaster archway detail" loading="lazy" /></div>
+          <figcaption class="gal-cap"><strong>The setting</strong><span>Above Luminous Hair, Darlington town centre</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews" id="reviews">
+  <div class="wrap reviews-grid">
+    <div class="reviews-side">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Client love</p>
+      <h2 class="display h-sm">The words that mean <em>the most.</em></h2>
+      <p class="lede" style="margin-top:30px;max-width:22rem">Reviews shared by Luxe &amp; Lush clients, reproduced as they were written.</p>
+      <div class="review-nav">
+        <button class="rev-btn" type="button" id="revPrev" aria-label="Previous review">←</button>
+        <button class="rev-btn" type="button" id="revNext" aria-label="Next review">→</button>
+        <span class="rev-count" id="revCount">01 / 05</span>
+      </div>
+    </div>
+    <div class="reviews-stage">
+      <div class="review-stage-inner">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <blockquote class="review-quote" id="reviewQuote">Such a lovely lady! Very knowledgeable and a comfortable appointment. Results are looking wonderful! Would recommend to everyone except my enemies</blockquote>
+        <div class="review-attr"><span class="rule"></span><span id="reviewName">Ebony</span></div>
+        <div class="review-names" id="reviewNames"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="book">
+  <div class="booking-mark"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".7"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".4"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="currentColor">JB</text></svg></div>
+  <div class="wrap">
+    <div class="booking-inner">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Booking</p>
+      <h2 class="display booking-title">Your appointment <em>starts here.</em></h2>
+      <p class="booking-lede">Appointments are handled through the clinic’s Faces Consent booking system. If you’d rather ask something first, Jody is happy to hear from you on WhatsApp before you book.</p>
+      <div class="booking-actions">
+        <a class="btn btn-champ" href="#" data-booking target="_blank" rel="noopener">Book your appointment <span class="arw">↗</span></a>
+        <a class="btn btn-ghost" href="#" data-whatsapp target="_blank" rel="noopener">Message Jody</a>
+      </div>
+      <div class="booking-meta">
+        <div>
+          <h4>Prefer to call</h4>
+          <a href="#" data-phone>✆ +44 7518 779006</a>
+        </div>
+        <div>
+          <h4>The clinic</h4>
+          <p>19 Post House Wynd, Darlington, DL3 7LP<span>Above Luminous Hair</span></p>
+        </div>
+      </div>
+      <p class="booking-fine">Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision. Please contact the clinic to enquire about the consultation process.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-copy">
+      <p class="eyebrow eyebrow-line"><span class="rule"></span>Contact</p>
+      <h2 class="display contact-title">Speak <em>with Jody.</em></h2>
+      <p class="lede contact-lede">Whatever you’d like to ask — a treatment, suitability, pricing or availability — you’re welcome to get in touch directly. There is no question too small.</p>
+      <div class="contact-actions">
+        <a class="btn btn-solid" href="#" data-whatsapp target="_blank" rel="noopener">WhatsApp Jody</a>
+        <a class="btn btn-outline" href="https://www.instagram.com/luxelush15/" target="_blank" rel="noopener">@luxelush15</a>
+      </div>
+      <div class="contact-arrive">
+        <h4>Arriving</h4>
+        <p>Luxe &amp; Lush is above <strong>Luminous Hair</strong> on Post House Wynd, in Darlington town centre. If you’re unsure of the entrance on your first visit, message Jody and she’ll guide you in.</p>
+        <a class="link-underline" href="#" data-directions target="_blank" rel="noopener">Get directions ↗</a>
+      </div>
+    </div>
+
+    <div class="contact-list">
+      <div class="contact-rows">
+        <a class="contact-row" href="#" data-directions target="_blank" rel="noopener">
+          <span class="contact-row-main">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6.09 7-11a7 7 0 1 0-14 0c0 4.91 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <span><h4>Visit</h4><span class="value">19 Post House Wynd, Darlington, DL3 7LP</span><span class="detail">Above Luminous Hair</span></span>
+          </span>
+          <span class="go"><span class="lbl">Get directions</span><span>↗</span></span>
+        </a>
+        <a class="contact-row" href="#" data-whatsapp target="_blank" rel="noopener">
+          <span class="contact-row-main">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+            <span><h4>WhatsApp</h4><span class="value">+44 7518 779006</span><span class="detail">The quickest way to reach Jody</span></span>
+          </span>
+          <span class="go"><span class="lbl">Open WhatsApp</span><span>↗</span></span>
+        </a>
+        <a class="contact-row" href="#" data-phone>
+          <span class="contact-row-main">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z"/></svg>
+            <span><h4>Call</h4><span class="value">+44 7518 779006</span><span class="detail">Speak to the clinic directly</span></span>
+          </span>
+          <span class="go"><span class="lbl">Call now</span><span>↗</span></span>
+        </a>
+        <a class="contact-row" href="#" data-email>
+          <span class="contact-row-main">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            <span><h4>Email</h4><span class="value">luxelush15@outlook.com</span><span class="detail">For longer enquiries</span></span>
+          </span>
+          <span class="go"><span class="lbl">Send an email</span><span>↗</span></span>
+        </a>
+      </div>
+      <div class="contact-social">
+        <a href="https://www.instagram.com/luxelush15/" target="_blank" rel="noopener">Instagram</a>
+        <i></i>
+        <a href="https://www.facebook.com/share/1Dqzfn1oQ8/" target="_blank" rel="noopener">Facebook</a>
+        <i></i>
+        <a href="#" data-booking target="_blank" rel="noopener">Book online</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="f-brand">
+        <div class="f-brand-head">
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".7" opacity=".75"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".4" opacity=".4"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="currentColor">JB</text></svg>
+          <div><p class="f-brand-name">Luxe &amp; Lush</p><p class="f-brand-sub">Aesthetics · Est. 2025</p></div>
+        </div>
+        <p>Beauty and aesthetic treatments in a welcoming, personal setting in the centre of Darlington, run by Jody Barker.</p>
+        <div class="f-social">
+          <a href="https://www.instagram.com/luxelush15/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="#" data-whatsapp target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+          <a href="#" data-email aria-label="Email">@</a>
+          <a href="#" data-phone aria-label="Call">☏</a>
+        </div>
+      </div>
+
+      <div class="f-col f-explore">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#experience">The Experience</a></li>
+          <li><a href="#jody">Meet Jody</a></li>
+          <li><a href="#treatments">Treatments</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#book">Booking</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col f-treat">
+        <h4>Treatments</h4>
+        <ul id="footerCats"></ul>
+      </div>
+
+      <div class="f-col f-contact">
+        <h4>Visit &amp; contact</h4>
+        <address class="f-address">19 Post House Wynd<br />Darlington, DL3 7LP<br />United Kingdom<span>Above Luminous Hair</span></address>
+        <div class="f-links">
+          <a href="#" data-phone>+44 7518 779006</a>
+          <a href="#" data-email>luxelush15@outlook.com</a>
+        </div>
+        <a class="f-book" href="#" data-booking target="_blank" rel="noopener">Book online <span class="arw">↗</span></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="fine">Prices shown are the clinic’s listed menu prices. Treatment suitability, appropriate quantities and any consultation requirement are confirmed individually before treatment. Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision. Treatment outcomes vary between individuals. Opening hours are confirmed directly by the clinic.</p>
+      <div class="footer-bar">
+        <p>© <span id="year">2026</span> Luxe &amp; Lush Aesthetics · Darlington</p>
+        <p>Established 2025 · Owned by Jody Barker</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock">
+  <div class="dock-inner">
+    <a class="btn btn-solid" href="#book" data-booking>Book appointment <span class="arw">↗</span></a>
+    <a class="dock-icon" href="#" data-whatsapp target="_blank" rel="noopener" aria-label="WhatsApp Jody">✆</a>
+    <a class="dock-icon" href="#" data-phone aria-label="Call the clinic">☏</a>
+  </div>
+</div>
+
+<button class="concierge-fab" type="button" id="conciergeFab" aria-label="Open the Luxe &amp; Lush Concierge">
+  <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".9" opacity=".8"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".5" opacity=".45"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="currentColor">JB</text></svg>
+  <span class="lbl"><b>Concierge</b><span>Ask a question</span></span>
+</button>
+
+<section class="concierge" id="concierge" aria-label="Luxe &amp; Lush Concierge">
+  <header class="concierge-head">
+    <div class="concierge-head-in">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width=".9" opacity=".8"/><circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width=".5" opacity=".45"/><text x="50" y="61" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="currentColor">JB</text></svg>
+      <div>
+        <p class="concierge-title">The Concierge</p>
+        <p class="concierge-sub">Luxe &amp; Lush · Menu, booking &amp; enquiries</p>
+      </div>
+    </div>
+    <button class="concierge-close" type="button" id="conciergeClose" aria-label="Close concierge">✕</button>
+  </header>
+  <div class="concierge-log" id="conciergeLog" role="log" aria-live="polite"></div>
+  <form class="concierge-form" id="conciergeForm">
+    <div class="row">
+      <input id="conciergeInput" type="text" placeholder="Ask about a treatment, price or booking…" aria-label="Your question for the concierge" autocomplete="off" />
+      <button class="concierge-send" type="submit" aria-label="Send question" id="conciergeSend">➤</button>
+    </div>
+    <p class="concierge-fine">Answers come from the Luxe &amp; Lush knowledge base — the concierge never guesses, and never books on your behalf.</p>
+  </form>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     1. BUSINESS DETAILS — the single source of truth for links
+     ============================================================ */
+  var LINKS = {
+    booking: "http://facesconsent.com/bookings/jody-barker?fbclid=IwVERDUAVf5apleHRuA2FlbQIxMABwZG9mAXNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABH-vIyZ6v1ZEcnDswBadGqn-VzLhOevLfF5nhJA7OeW0gc7B6z2xRSr1OE__Z_aem_9PN9OQPUqqbR1kEuS-eepQ",
+    whatsapp: "https://wa.me/447518779006?text=Hi%20Jody%2C%20I%27d%20like%20to%20enquire%20about%20Luxe%20%26%20Lush%20Aesthetics.",
+    phone: "tel:+447518779006",
+    email: "mailto:luxelush15@outlook.com",
+    directions: "https://www.google.com/maps/dir/?api=1&destination=19+Post+House+Wynd%2C+Darlington+DL3+7LP%2C+United+Kingdom",
+    instagram: "https://www.instagram.com/luxelush15/",
+    facebook: "https://www.facebook.com/share/1Dqzfn1oQ8/"
+  };
+  var PHONE_TEXT = "+44 7518 779006";
+  var EMAIL_TEXT = "luxelush15@outlook.com";
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  /* wire every contact action */
+  $$('[data-booking]').forEach(function (a) { a.href = LINKS.booking; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+  $$('[data-whatsapp]').forEach(function (a) { a.href = LINKS.whatsapp; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+  $$('[data-phone]').forEach(function (a) { a.href = LINKS.phone; });
+  $$('[data-email]').forEach(function (a) { a.href = LINKS.email; });
+  $$('[data-directions]').forEach(function (a) { a.href = LINKS.directions; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+  var yearEl = $('#year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ============================================================
+     2. TEXT UTILITIES — normalising, stemming and fuzzy matching
+     ============================================================ */
+  var STOP = ('a an the and or of to in at on for with is are was were be been being do does did ' +
+    'you your yours my me i we our us it its this that these those can could would will shall should ' +
+    'may might must what which who whom how much many any some about tell please offer offers have has ' +
+    'had get got there here from by so if but not no yes hi hello hey thanks thank also just want need ' +
+    'looking look like im service services salon clinic treatments treatment facial facials luxury both ' +
+    'full area areas small large list listed menu price prices pricing cost costs charge fee fees').split(/\s+/);
+  var STOPSET = {};
+  STOP.forEach(function (w) { STOPSET[w] = true; });
+
+  var SYNONYMS = [
+    [/\bderma ?plan(?:e|ing|ning|ed)?\b/g, 'dermaplaning'],
+    [/\bmicro ?needl\w*\b/g, 'microneedling'],
+    [/\bfillers?\b/g, 'dermal filler'],
+    [/\b(?:boto?x|anti ?wrinkle\w*|wrinkle\w*)\b/g, 'anti wrinkle'],
+    [/\bplasma\b/g, 'plasma fibroblast'],
+    [/\bfibroblast\w*\b/g, 'plasma fibroblast'],
+    [/\bskin ?tags?\b/g, 'skin tag'],
+    [/\beyebrows?\b/g, 'brow'],
+    [/\bbrows?\b/g, 'brow'],
+    [/\bmicroblad\w*\b/g, 'microbladed brow'],
+    [/\bsemi ?[- ]?permanent\b/g, 'semi permanent makeup'],
+    [/\bspmu\b|\bpmu\b/g, 'semi permanent makeup'],
+    [/\bpeels?\b/g, 'chemical skin peel'],
+    [/\bjelly\b/g, 'jelly mask'],
+    [/\bbesties?\b|\bbest friend\b|\bfriends?\b|\bplus one\b|\bcompanion\b/g, 'bring a bestie'],
+    [/\bvits?\b|\bvitamins?\b|\bshots?\b|\binjections?\b/g, 'vitamin'],
+    [/\blips?\b/g, 'lip'],
+    [/\bjowls\b/g, 'jowl'],
+    [/\bcheeks\b/g, 'cheek'],
+    [/\blines\b/g, 'line'],
+    [/\beyes?\b/g, 'eye']
+  ];
+
+  function normalize(input) {
+    var text = String(input || '').toLowerCase().replace(/[\u2019'`]/g, '').replace(/&/g, ' and ')
+      .replace(/[^a-z0-9.\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    SYNONYMS.forEach(function (pair) { text = text.replace(pair[0], pair[1]); });
+    return text.replace(/\s+/g, ' ').trim();
+  }
+  function stem(w) {
+    if (w.length > 5 && /ing$/.test(w)) return w.slice(0, -3);
+    if (w.length > 4 && /ies$/.test(w)) return w.slice(0, -3) + 'y';
+    if (w.length > 3 && /s$/.test(w) && !/ss$/.test(w)) return w.slice(0, -1);
+    return w;
+  }
+  function tokenize(text) {
+    return normalize(text).split(' ').filter(function (w) { return w.length > 2 && !STOPSET[w]; }).map(stem);
+  }
+  function similarity(a, b) {
+    if (a === b) return 1;
+    if (!a || !b) return 0;
+    var m = a.length, n = b.length;
+    if (Math.abs(m - n) > 4) return 0;
+    var prev = [], cur = [], i, j;
+    for (j = 0; j <= n; j += 1) prev[j] = j;
+    for (i = 1; i <= m; i += 1) {
+      cur = [i];
+      for (j = 1; j <= n; j += 1) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return 1 - prev[n] / Math.max(m, n);
+  }
+  function hasAny(text, phrases) {
+    for (var i = 0; i < phrases.length; i += 1) if (text.indexOf(phrases[i]) !== -1) return true;
+    return false;
+  }
+
+  /* ============================================================
+     3. THE TREATMENT MENU — structured data, not scattered copy
+     ============================================================ */
+  var GROUP_LABELS = {
+    facial: 'Facial Treatments', filler: 'Dermal Filler', plasma: 'Plasma Fibroblast',
+    vitamin: 'Vitamin Treatments', spmu: 'Semi-Permanent Makeup', bestie: 'Bring a Bestie'
+  };
+  var CATEGORIES = [
+    { id: 'all', label: 'All Treatments' },
+    { id: 'aesthetic', label: 'Aesthetic Treatments' },
+    { id: 'filler', label: 'Dermal Filler' },
+    { id: 'facial', label: 'Facial Treatments' },
+    { id: 'plasma', label: 'Plasma Fibroblast' },
+    { id: 'vitamin', label: 'Vitamin Treatments' },
+    { id: 'spmu', label: 'Semi-Permanent Makeup' },
+    { id: 'bestie', label: 'Bring a Bestie' }
+  ];
+
+  var FACIAL_SUMMARY = 'A facial treatment from the Luxe & Lush facial menu. Jody can confirm the clinic’s current treatment details, what is included and any preparation before you book.';
+  var FILLER_NOTE = 'Treatment suitability and appropriate quantities require individual professional assessment.';
+  var PLASMA_NOTE = 'The clinic can advise on the service and whether an individual consultation is needed. Outcomes vary between individuals.';
+  var FILLER_AREAS = ['Cheeks', 'Chin', 'Jaw', 'Lips', 'Nasolabial folds', 'Marionette lines'];
+  var BESTIE_NOTE = 'Paired offers are subject to an individual suitability assessment for each person.';
+
+  /* [id, name, priceLabel, group, keywords, summary, note, areas?] */
+  var RAW = [
+    ['dermaplaning-facial', 'Dermaplaning Facial', '£30', 'facial', 'dermaplaning|dermaplaning facial|dermaplane', FACIAL_SUMMARY, 'Contact the clinic if you have questions about suitability.'],
+    ['luxury-dermaplane-facial', 'Luxury Dermaplane Facial', '£40', 'facial', 'luxury dermaplane|dermaplane facial|dermaplaning', 'Listed separately from the Dermaplaning Facial as the luxury option on the facial menu. For a precise explanation of what is included in each, Jody can confirm the clinic’s current treatment details.', 'Contact the clinic if you have questions about suitability.'],
+    ['jelly-mask-facial', 'Jelly Mask Facial', '£40', 'facial', 'jelly mask|jelly mask facial', FACIAL_SUMMARY, ''],
+    ['microneedling-express-facial', 'Microneedling Express Facial', '£40', 'facial', 'microneedling express|express microneedling|microneedling', 'Listed as the express option within the microneedling treatments on the facial menu. Jody can confirm the clinic’s current treatment details.', 'Contact the clinic if you have questions about suitability.'],
+    ['luxury-microneedling-facial', 'Luxury Microneedling Facial', '£60', 'facial', 'luxury microneedling|microneedling', 'Listed separately from the Microneedling Express Facial as the luxury option on the facial menu. Jody can confirm the clinic’s current treatment details.', 'Contact the clinic if you have questions about suitability.'],
+    ['chemical-skin-peel', 'Chemical Skin Peel', '£50', 'facial', 'chemical skin peel|skin peel|chemical peel', FACIAL_SUMMARY, 'Please contact the clinic if you have questions about suitability.'],
+    ['luxury-elemis-facial', 'Luxury ELEMIS Facial', '£75', 'facial', 'elemis|elemis facial', FACIAL_SUMMARY, ''],
+
+    ['dermal-filler-1-1', '1.1ml Dermal Filler', '£130', 'filler', '1.1ml|1ml|1 ml|dermal filler|filler', 'Dermal filler listed by volume on the Luxe & Lush menu.', FILLER_NOTE, FILLER_AREAS],
+    ['dermal-filler-2-2', '2.2ml Dermal Filler', '£200', 'filler', '2.2ml|2ml|2 ml|dermal filler|filler', 'Dermal filler listed by volume on the Luxe & Lush menu.', FILLER_NOTE, FILLER_AREAS],
+    ['dermal-filler-3-3', '3.3ml Dermal Filler', '£330', 'filler', '3.3ml|3ml|3 ml|dermal filler|filler', 'Dermal filler listed by volume on the Luxe & Lush menu.', FILLER_NOTE, FILLER_AREAS],
+    ['dermal-filler-4-4', '4.4ml Dermal Filler', '£400', 'filler', '4.4ml|4ml|4 ml|dermal filler|filler', 'Dermal filler listed by volume on the Luxe & Lush menu.', FILLER_NOTE, FILLER_AREAS],
+
+    ['plasma-upper-eyes', 'Upper Eyes (including crow\'s feet)', '£170', 'plasma', 'upper eye|upper eyes|crow feet|eye', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-lower-eyes', 'Lower Eyes (including crow\'s feet)', '£170', 'plasma', 'lower eye|lower eyes|crow feet|eye', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-both-eyes', 'Both — Upper & Lower Eyes', '£220', 'plasma', 'both eye|upper and lower|eye', 'Upper and lower eye Plasma Fibroblast treatment listed together on the menu.', PLASMA_NOTE],
+    ['plasma-neck-small', 'Neck Lift — Small Area', '£200', 'plasma', 'neck lift|small neck|neck', 'Plasma Fibroblast neck treatment listed for a small area.', PLASMA_NOTE],
+    ['plasma-neck-full', 'Full Neck Lift', '£300', 'plasma', 'full neck lift|neck lift|neck', 'Plasma Fibroblast neck treatment listed as the full neck lift.', PLASMA_NOTE],
+    ['plasma-jowls', 'Jowls', '£300', 'plasma', 'jowl|jaw', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-frown-lines', 'Frown Lines', '£170', 'plasma', 'frown|frown line', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-forehead-frown', 'Forehead and Frown Lines', '£300', 'plasma', 'forehead|forehead and frown|frown line', 'Plasma Fibroblast treatment listed for the forehead and frown lines together.', PLASMA_NOTE],
+    ['plasma-smokers-lines', 'Smokers Lines', '£170', 'plasma', 'smoker|smokers line', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-nasolabial', 'Nasolabial Folds', '£170', 'plasma', 'nasolabial|nasolabial fold', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-marionette', 'Marionette Lines', '£170', 'plasma', 'marionette|marionette line', 'Plasma Fibroblast treatment listed by area on the Luxe & Lush menu.', PLASMA_NOTE],
+    ['plasma-combined-lines', 'Smokers Lines, Marionette Lines & Nasolabial Lines', '£350', 'plasma', 'smokers marionette nasolabial|three areas|combined', 'Smokers lines, marionette lines and nasolabial lines listed together as one treatment on the menu.', PLASMA_NOTE],
+    ['plasma-stomach', 'Stomach Tightening', '£499', 'plasma', 'stomach|tummy|abdomen', 'Plasma Fibroblast stomach treatment listed on the menu.', PLASMA_NOTE],
+    ['plasma-skin-tags', 'Skin Tag Removal', '£50', 'plasma', 'skin tag|skin tags|tag removal', 'Skin tag removal listed at £50 on the Luxe & Lush menu.', 'Additional skin tags are priced following consultation.'],
+
+    ['vitamin-b12', 'B12 Vitamin Shot', '£20', 'vitamin', 'b12|b 12|vitamin b12|vitamin', 'A vitamin injection listed on the Luxe & Lush menu.', 'For clinical questions and suitability, please contact the clinic directly.'],
+    ['vitamin-biotin', 'Biotin Vitamin Shot', '£20', 'vitamin', 'biotin|vitamin', 'A vitamin injection listed on the Luxe & Lush menu.', 'For clinical questions and suitability, please contact the clinic directly.'],
+
+    ['spmu-microbladed-brows', 'Microbladed Brows', '£200', 'spmu', 'microbladed brow|microblading|microblade|brow', 'A semi-permanent brow treatment listed on the menu. Jody can confirm the clinic’s current process and what is included.', 'Please contact the clinic if you have questions about suitability.'],
+    ['spmu-powder-brows', 'Powder Brows', '£200', 'spmu', 'powder brow|brow', 'A semi-permanent brow treatment listed on the menu. Jody can confirm the clinic’s current process and what is included.', 'Please contact the clinic if you have questions about suitability.'],
+    ['spmu-lip-blush', 'Lip Blush', '£150', 'spmu', 'lip blush|lip|blush', 'A semi-permanent lip treatment listed on the menu. Jody can confirm the clinic’s current process and what is included.', 'Please contact the clinic if you have questions about suitability.'],
+
+    ['bestie-filler', '1ml Filler for You and a Friend', '£110 per person', 'bestie', 'bestie filler|filler for two|bring a bestie filler', 'A paired offer for two people, priced per person. Contact the clinic to enquire.', BESTIE_NOTE],
+    ['bestie-brows', 'Microbladed Brows for You and a Friend', '£170 per person', 'bestie', 'bestie brows|brows for two|bring a bestie brows', 'A paired offer for two people, priced per person. Contact the clinic to enquire.', BESTIE_NOTE],
+    ['bestie-brows-lips', 'Microbladed Brows and 1ml Lips for You and a Friend', '£280 per person', 'bestie', 'bestie brows lips|brows and lips|bring a bestie lips', 'A paired offer for two people, priced per person. Contact the clinic to enquire.', BESTIE_NOTE]
+  ];
+
+  var TREATMENTS = RAW.map(function (row) {
+    return {
+      id: row[0], name: row[1], priceLabel: row[2], group: row[3],
+      keywords: row[4].split('|'), summary: row[5], note: row[6], areas: row[7] || null,
+      tags: row[3] === 'facial' ? ['facial'] : [row[3], 'aesthetic']
+    };
+  });
+  function byId(id) { for (var i = 0; i < TREATMENTS.length; i += 1) if (TREATMENTS[i].id === id) return TREATMENTS[i]; return null; }
+
+  var REVIEWS = [
+    { name: 'Ebony', quote: 'Such a lovely lady! Very knowledgeable and a comfortable appointment. Results are looking wonderful! Would recommend to everyone except my enemies' },
+    { name: 'Clare', quote: 'Got my lips done I am So happy with them and what a beautiful Salon so professional 🫶🏼' },
+    { name: 'Samantha', quote: 'She was lovely friendly very polite. She did my eyebrows amazing.She was very professional doing my skin tags with care to. Excellent Highly Recommend' },
+    { name: 'Ellie', quote: 'where to start, a beautiful lady inside and out\n\ngorgeous clinic\namazing treatments\nsuper talented\n\n💯 recommend\n\nwe met on a course, have now had treatments which are amazing and will be friends forever ❤️' },
+    { name: 'Rachael', quote: 'Jody is such a lovely girl and very friendly makes you feel at home. very professional and I would highly recommend. ❤️ xx' }
+  ];
+
+  /* ============================================================
+     4. HEADER, MOBILE MENU, DOCK, INTRO
+     ============================================================ */
+  var header = $('#siteHeader');
+  var dock = $('#dock');
+  function onScroll() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    if (header) header.classList.toggle('is-scrolled', y > 48);
+    if (dock) {
+      var pastHero = y > window.innerHeight * 0.85;
+      var nearBottom = y + window.innerHeight > document.body.scrollHeight - 220;
+      dock.classList.toggle('is-visible', pastHero && !nearBottom);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var mobileMenu = $('#mobileMenu');
+  var menuOpen = $('#menuOpen');
+  var menuClose = $('#menuClose');
+  function setMenu(open) {
+    if (!mobileMenu) return;
+    mobileMenu.classList.toggle('is-open', open);
+    mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (menuOpen) menuOpen.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('is-locked', open);
+  }
+  if (menuOpen) menuOpen.addEventListener('click', function () { setMenu(true); });
+  if (menuClose) menuClose.addEventListener('click', function () { setMenu(false); });
+  $$('#mobileMenu a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  var intro = $('#intro');
+  if (intro) window.setTimeout(function () { if (intro.parentNode) intro.parentNode.removeChild(intro); }, 3500);
+
+  /* ============================================================
+     5. TREATMENT DIRECTORY — search, filters, detail drawer
+     ============================================================ */
+  var chips = $('#chips');
+  var results = $('#dirResults');
+  var searchInput = $('#dirSearch');
+  var clearBtn = $('#dirClear');
+  var countEl = $('#dirCount');
+  var resetBtn = $('#dirReset');
+  var state = { query: '', category: 'all' };
+
+  function countFor(id) {
+    if (id === 'all') return TREATMENTS.length;
+    return TREATMENTS.filter(function (t) { return t.tags.indexOf(id) !== -1; }).length;
+  }
+
+  CATEGORIES.forEach(function (cat) {
+    var b = el('button', 'chip');
+    b.type = 'button';
+    b.setAttribute('data-cat', cat.id);
+    b.setAttribute('aria-pressed', cat.id === 'all' ? 'true' : 'false');
+    if (cat.id === 'all') b.classList.add('is-active');
+    b.appendChild(document.createTextNode(cat.label));
+    b.appendChild(el('b', null, String(countFor(cat.id))));
+    b.addEventListener('click', function () { state.category = cat.id; render(); });
+    chips.appendChild(b);
+  });
+
+  function searchPool() {
+    var pool = state.category === 'all' ? TREATMENTS : TREATMENTS.filter(function (t) { return t.tags.indexOf(state.category) !== -1; });
+    var text = normalize(state.query).trim();
+    if (!text) return pool;
+    var qTokens = text.split(' ').filter(function (w) { return w.length > 1; });
+    var qStems = tokenize(text);
+    var scored = pool.map(function (t) {
+      var haystack = normalize(t.name + ' ' + t.keywords.join(' ') + ' ' + t.summary);
+      var hayStems = tokenize(t.name + ' ' + t.keywords.join(' '));
+      var score = 0;
+      if (haystack.indexOf(text) !== -1) score += 12;
+      qTokens.forEach(function (token) {
+        if (token.length < 3) return;
+        if (haystack.indexOf(token) !== -1) score += 4;
+        else if (token.length >= 4) {
+          var hit = hayStems.some(function (s) { return s.length >= 4 && similarity(stem(token), s) >= 0.8; });
+          if (hit) score += 3;
+        }
+      });
+      qStems.forEach(function (s) { if (hayStems.indexOf(s) !== -1) score += 2; });
+      return { t: t, score: score };
+    }).filter(function (e) { return e.score > 0; });
+    scored.sort(function (a, b) { return b.score - a.score || a.t.name.localeCompare(b.t.name); });
+    return scored.map(function (e) { return e.t; });
+  }
+
+  function render() {
+    $$('.chip', chips).forEach(function (c) {
+      var active = c.getAttribute('data-cat') === state.category;
+      c.classList.toggle('is-active', active);
+      c.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    var list = searchPool();
+    countEl.textContent = list.length + (list.length === 1 ? ' treatment' : ' treatments') + (state.query ? ' found' : ' listed');
+    var dirty = state.query || state.category !== 'all';
+    if (resetBtn) resetBtn.hidden = !dirty;
+    if (clearBtn) clearBtn.hidden = !state.query;
+
+    results.innerHTML = '';
+    if (!list.length) {
+      var empty = el('div', 'dir-empty');
+      empty.appendChild(el('h3', null, 'Nothing matched that search.'));
+      empty.appendChild(el('p', null, 'Try a treatment name, or ask the concierge — it can search the full menu for you.'));
+      var acts = el('div', 'acts');
+      var askBtn = el('button', 'btn btn-solid', 'Ask the concierge');
+      askBtn.type = 'button';
+      askBtn.addEventListener('click', openConcierge);
+      var wa = el('a', 'link-underline', 'Message Jody ↗');
+      wa.href = LINKS.whatsapp; wa.target = '_blank'; wa.rel = 'noopener noreferrer';
+      acts.appendChild(askBtn); acts.appendChild(wa);
+      empty.appendChild(acts);
+      results.appendChild(empty);
+      return;
+    }
+    var grid = el('div', 'dir-list');
+    list.forEach(function (t) {
+      var row = el('button', 'dir-row');
+      row.type = 'button';
+      var left = el('span');
+      left.appendChild(el('span', 'dir-row-cat', GROUP_LABELS[t.group]));
+      left.appendChild(el('span', 'dir-row-name', t.name));
+      var right = el('span', 'dir-row-right');
+      right.appendChild(el('span', 'dir-row-price', t.priceLabel));
+      right.appendChild(el('span', 'dir-row-arrow', '↗'));
+      row.appendChild(left); row.appendChild(right);
+      row.addEventListener('click', function () { openDetail(t); });
+      var li = el('div');
+      li.appendChild(row);
+      grid.appendChild(li);
+    });
+    results.appendChild(grid);
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () { state.query = searchInput.value; render(); });
+  }
+  if (clearBtn) clearBtn.addEventListener('click', function () { state.query = ''; searchInput.value = ''; render(); searchInput.focus(); });
+  if (resetBtn) resetBtn.addEventListener('click', function () {
+    state.query = ''; state.category = 'all'; searchInput.value = ''; render();
+  });
+  function filterBy(id) {
+    state.category = id; state.query = ''; if (searchInput) searchInput.value = '';
+    render(); scrollToSection('#treatments');
+  }
+  function scrollToSection(sel) {
+    var target = document.querySelector(sel);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  render();
+
+  /* ---- detail drawer ---- */
+  var detail = $('#detail');
+  var lastFocus = null;
+  function openDetail(t) {
+    lastFocus = document.activeElement;
+    $('#detailCat').textContent = GROUP_LABELS[t.group];
+    $('#detailTitle').textContent = t.name;
+    $('#detailPrice').textContent = t.priceLabel;
+    $('#detailSummary').textContent = t.summary;
+    var areas = $('#detailAreas');
+    if (t.areas && t.areas.length) {
+      var tags = $('#detailTags');
+      tags.innerHTML = '';
+      t.areas.forEach(function (a) { tags.appendChild(el('span', null, a)); });
+      areas.hidden = false;
+    } else { areas.hidden = true; }
+    var note = $('#detailNote');
+    if (t.note) { $('#detailNoteText').textContent = t.note; note.hidden = false; } else { note.hidden = true; }
+    var enquire = $('#detailEnquire');
+    enquire.textContent = 'Enquire about ' + t.name;
+    enquire.href = LINKS.whatsapp;
+    detail.classList.add('is-open');
+    detail.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-locked');
+    $('.detail-close', detail).focus();
+  }
+  function closeDetail() {
+    detail.classList.remove('is-open');
+    detail.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-locked');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  if (detail) {
+    $('#detailClose').addEventListener('click', closeDetail);
+    $('#detailX').addEventListener('click', closeDetail);
+    $$('[data-booking]', detail).forEach(function (a) { a.addEventListener('click', closeDetail); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && detail.classList.contains('is-open')) closeDetail(); });
+  }
+
+  /* ---- footer collection shortcuts ---- */
+  var footerCats = $('#footerCats');
+  if (footerCats) {
+    CATEGORIES.filter(function (c) { return c.id !== 'all'; }).forEach(function (cat) {
+      var li = el('li');
+      var b = el('button', null, cat.label);
+      b.type = 'button';
+      b.addEventListener('click', function () { filterBy(cat.id); });
+      li.appendChild(b); footerCats.appendChild(li);
+    });
+  }
+
+  /* ============================================================
+     6. REVIEW CAROUSEL
+     ============================================================ */
+  var revIndex = 0;
+  var names = $('#reviewNames');
+  if (names) {
+    REVIEWS.forEach(function (r, i) {
+      var b = el('button', null, r.name);
+      b.type = 'button';
+      b.addEventListener('click', function () { showReview(i); });
+      names.appendChild(b);
+    });
+  }
+  function showReview(i) {
+    revIndex = (i + REVIEWS.length) % REVIEWS.length;
+    $('#reviewQuote').textContent = REVIEWS[revIndex].quote;
+    $('#reviewName').textContent = REVIEWS[revIndex].name;
+    $('#revCount').textContent = String(revIndex + 1).padStart(2, '0') + ' / ' + String(REVIEWS.length).padStart(2, '0');
+    $$('button', names).forEach(function (b, idx) { b.classList.toggle('is-active', idx === revIndex); });
+  }
+  if ($('#revPrev')) $('#revPrev').addEventListener('click', function () { showReview(revIndex - 1); });
+  if ($('#revNext')) $('#revNext').addEventListener('click', function () { showReview(revIndex + 1); });
+  showReview(0);
+
+  /* ============================================================
+     7. THE CONCIERGE — deterministic answer engine
+     ============================================================ */
+  var CONCIERGE_INTRO = "Welcome to Luxe & Lush. I'm here to help you explore treatments, find information and get in touch with Jody. What would you like to know?";
+  var QUICK = [
+    'What treatments do you offer?', 'How much are your facials?', 'How much is dermaplaning?',
+    'Do you offer microneedling?', 'What is dermal filler?', 'What is plasma fibroblast?',
+    'Do you offer semi-permanent makeup?', 'What is Bring a Bestie?', 'Where are you located?',
+    'How do I book?', 'How can I contact Jody?', 'Can I ask about treatment suitability?'
+  ];
+  var ACTIONS = {
+    booking: { label: 'Book an appointment', href: LINKS.booking, external: true },
+    whatsapp: { label: 'Chat on WhatsApp', href: LINKS.whatsapp, external: true },
+    call: { label: 'Call the clinic', href: LINKS.phone },
+    email: { label: 'Send an email', href: LINKS.email },
+    directions: { label: 'Get directions', href: LINKS.directions, external: true },
+    treatments: { label: 'View treatments', scroll: '#treatments' },
+    facials: { label: 'View the facial menu', scroll: '#treatments', filter: 'facial' },
+    instagram: { label: 'View Instagram', href: LINKS.instagram, external: true },
+    facebook: { label: 'View Facebook', href: LINKS.facebook, external: true },
+    contact: { label: 'Contact Jody', scroll: '#contact' }
+  };
+  var SUGGEST = {
+    start: ['What treatments do you offer?', 'Where are you located?', 'How do I book?'],
+    price: ['How do I book?', 'Can I ask about treatment suitability?', 'Where are you located?'],
+    booking: ['What treatments do you offer?', 'Where are you located?', 'How can I contact Jody?'],
+    contact: ['How do I book?', 'What treatments do you offer?', 'Where are you located?'],
+    info: ['How do I book?', 'Can I ask about treatment suitability?', 'How much are your facials?'],
+    fallback: ['What treatments do you offer?', 'How much are your facials?', 'How can I contact Jody?']
+  };
+  var ctx = {};
+
+  function reply(text, actionIds, suggestions, patch) {
+    return {
+      text: text,
+      actions: (actionIds || []).filter(function (id) { return ACTIONS[id]; }),
+      suggestions: suggestions || SUGGEST.info,
+      context: patch || {}
+    };
+  }
+  function priceReply(items) {
+    var lines = items.map(function (t) { return 'The ' + t.name + ' is listed at ' + t.priceLabel + '.'; });
+    var note = items.length === 1 ? items[0].note : null;
+    var text = [lines.join('\n'), note].filter(Boolean).join('\n\n');
+    return reply(text, ['booking', 'treatments'], SUGGEST.price, { lastIntent: 'price', lastTreatments: items.map(function (t) { return t.id; }) });
+  }
+  function infoReply(t) {
+    var parts = [t.name + ' — ' + t.priceLabel + '.', t.summary];
+    if (t.areas && t.areas.length) parts.push('Areas listed: ' + t.areas.join(', ').toLowerCase() + '.');
+    if (t.note) parts.push(t.note);
+    return reply(parts.filter(Boolean).join('\n\n'), ['booking', 'treatments', 'whatsapp'], SUGGEST.info, { lastIntent: 'treatment', lastTreatments: [t.id] });
+  }
+  function groupReply(group) {
+    var items = TREATMENTS.filter(function (t) { return t.group === group; });
+    var base = { lastIntent: 'group', lastGroup: group, lastTreatments: items.map(function (t) { return t.id; }) };
+    if (group === 'filler') {
+      return reply('The supplied menu lists 1.1ml at £130, 2.2ml at £200, 3.3ml at £330 and 4.4ml at £400. Treatment suitability and appropriate quantities require individual professional assessment.\n\nThe supplied treatment information lists cheeks, chin, jaw, lips, nasolabial folds and marionette lines. Please contact the clinic for an individual suitability enquiry.', ['booking', 'treatments'], SUGGEST.info, base);
+    }
+    if (group === 'bestie') {
+      var bl = items.map(function (t) { return '• ' + t.name + ' — ' + t.priceLabel; });
+      return reply('Bring a Bestie is a collection of paired offers listed by Luxe & Lush, priced per person. Explore the offers below, or contact the clinic to enquire.\n\n' + bl.join('\n') + '\n\nPaired offers are subject to an individual suitability assessment for each person.', ['treatments', 'whatsapp'], SUGGEST.info, base);
+    }
+    if (group === 'plasma') {
+      var pl = items.slice(0, 8).map(function (t) { return '• ' + t.name + ' — ' + t.priceLabel; });
+      return reply('Plasma Fibroblast is a treatment category listed by Luxe & Lush. The clinic can provide further information about the service and whether an individual consultation is needed.\n\nThe supplied menu lists:\n' + pl.join('\n') + '\n\n…and ' + Math.max(items.length - 8, 0) + ' more options in the treatment directory. Outcomes vary between individuals.', ['treatments', 'whatsapp'], SUGGEST.info, base);
+    }
+    var lines = items.map(function (t) { return '• ' + t.name + ' — ' + t.priceLabel; });
+    return reply(GROUP_LABELS[group] + ' on the Luxe & Lush menu:\n\n' + lines.join('\n') + '\n\nJody can confirm the clinic’s current treatment details and what is included before you book.', ['booking', 'treatments'], SUGGEST.price, base);
+  }
+  function findTreatments(text) {
+    var qStems = tokenize(text).filter(function (s) { return s.length > 3; });
+    if (!qStems.length) return [];
+    var scored = TREATMENTS.map(function (t) {
+      var nameStems = tokenize(t.name).filter(function (v, i, a) { return a.indexOf(v) === i; });
+      if (!nameStems.length) return { t: t, score: 0 };
+      var hayStems = tokenize(t.name + ' ' + t.keywords.join(' '));
+      var matched = 0;
+      qStems.forEach(function (q) {
+        var hit = hayStems.some(function (s) {
+          if (s === q) return true;
+          return q.length >= 5 && s.length >= 5 && similarity(q, s) >= 0.82;
+        });
+        if (hit) matched += 1;
+      });
+      return { t: t, score: matched / nameStems.length };
+    }).filter(function (e) { return e.score > 0; });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    return scored;
+  }
+
+  var PRICE_PHRASES = ['how much', 'price', 'prices', 'pricing', 'cost', 'costs', 'charge', 'fee', 'fees', 'how many ml'];
+  var INFO_PHRASES = ['what is', 'what are', 'whats', 'tell me about', 'explain', 'what does', 'included', 'difference', 'how does', 'about the'];
+  var DIFF_PHRASES = ['difference', 'different', 'compare', 'which one', 'whats the diff'];
+  var MENU_PHRASES = ['what treatments', 'treatment menu', 'do you offer', 'what do you offer', 'services', 'the menu', 'full menu', 'everything you do', 'price list', 'what can i have', 'whats available', 'options'];
+  var CATEGORY_KEYS = [
+    { id: 'facial', words: ['facial', 'facials', 'dermaplan', 'microneedl', 'peel', 'jelly mask', 'elemis'] },
+    { id: 'filler', words: ['filler', 'dermal'] },
+    { id: 'plasma', words: ['plasma', 'fibroblast', 'skin tag'] },
+    { id: 'vitamin', words: ['vitamin', 'b12', 'biotin'] },
+    { id: 'spmu', words: ['semi permanent', 'semi-permanent', 'brow', 'brows', 'lip blush', 'makeup'] },
+    { id: 'bestie', words: ['bestie', 'bring a'] }
+  ];
+  var INTENTS = [
+    { keys: ['opening', 'open', 'hours', 'closing', 'what time', 'closed'], build: function () {
+      return reply("Please contact Jody directly to confirm the clinic's current appointment availability and opening hours.", ['whatsapp', 'call'], SUGGEST.contact, { lastIntent: 'hours' }); } },
+    { keys: ['book', 'books', 'booked', 'booking', 'bookings', 'appointment', 'appointments', 'reserve', 'faces consent', 'facesconsent', 'schedule'], build: function () {
+      return reply("You can book through the clinic's online Faces Consent booking system. Select the Book Your Appointment option to continue.", ['booking', 'whatsapp'], SUGGEST.booking, { lastIntent: 'booking' }); } },
+    { keys: ['directions', 'direction', 'get there', 'how do i get', 'parking', 'park', 'travel', 'train station'], build: function () {
+      return reply('Luxe & Lush is at 19 Post House Wynd, Darlington, DL3 7LP — above Luminous Hair, in Darlington town centre. Tap below for directions in your maps app.', ['directions', 'whatsapp'], SUGGEST.contact, { lastIntent: 'location' }); } },
+    { keys: ['where', 'located', 'location', 'address', 'based', 'find you', 'post house'], build: function () {
+      return reply('You’ll find Luxe & Lush at 19 Post House Wynd, Darlington, DL3 7LP, above Luminous Hair.', ['directions', 'contact'], SUGGEST.contact, { lastIntent: 'location' }); } },
+    { keys: ['whatsapp', 'whats app', 'message you', 'text you'], build: function () {
+      return reply('Yes. You can contact Luxe & Lush on WhatsApp using ' + PHONE_TEXT + '.', ['whatsapp'], SUGGEST.contact, { lastIntent: 'whatsapp' }); } },
+    { keys: ['phone', 'telephone', 'number', 'call you', 'ring'], build: function () {
+      return reply('You can reach Luxe & Lush on ' + PHONE_TEXT + '.', ['call'], SUGGEST.contact, { lastIntent: 'phone' }); } },
+    { keys: ['email', 'mail', 'e mail'], build: function () {
+      return reply('You can email Luxe & Lush at ' + EMAIL_TEXT + '.', ['email'], SUGGEST.contact, { lastIntent: 'email' }); } },
+    { keys: ['instagram', 'insta'], build: function () {
+      return reply('You can find Luxe & Lush on Instagram at @luxelush15. For appointments, use the official Faces Consent booking link.', ['instagram', 'booking'], SUGGEST.contact, { lastIntent: 'instagram' }); } },
+    { keys: ['facebook', 'fb'], build: function () {
+      return reply('You can find Luxe & Lush on Facebook too. For appointments, use the official Faces Consent booking link.', ['facebook', 'booking'], SUGGEST.contact, { lastIntent: 'facebook' }); } },
+    { keys: ['consultation', 'consult', 'prescriber', 'suitability', 'suitable', 'assessment', 'medical', 'health condition', 'anti wrinkle', 'wrinkle', 'injectable'], build: function () {
+      return reply('Consultation requirements depend on the service. Some services require a face-to-face consultation with an appropriate prescriber before any treatment decision. Please contact the clinic for the correct process.', ['contact', 'whatsapp'], SUGGEST.info, { lastIntent: 'consultation' }); } },
+    { keys: ['guarantee', 'guaranteed', 'results', 'outcome', 'expectations'], build: function () {
+      return reply('Treatment outcomes vary between individuals. Please speak directly with the clinic about realistic expectations and any questions before proceeding.', ['contact'], SUGGEST.info, { lastIntent: 'results' }); } },
+    { keys: ['recommend', 'which treatment', 'what should i', 'best for', 'advice', 'advise', 'suggest'], build: function () {
+      return reply("Every person's needs are different. The clinic can advise on treatment suitability following the appropriate professional assessment. I can help you explore the menu, but I cannot assess or recommend a clinical treatment.", ['contact', 'whatsapp'], SUGGEST.info, { lastIntent: 'recommend' }); } },
+    { keys: ['jody', 'owner', 'who runs', 'who is'], build: function () {
+      return reply('Jody Barker is the owner of Luxe & Lush Aesthetics. You can contact the clinic directly if you have questions before booking.', ['whatsapp', 'contact'], SUGGEST.info, { lastIntent: 'jody' }); } },
+    { keys: ['luxe and lush', 'luxe lush', 'about you', 'who are you', 'what do you do', 'tell me about the clinic'], build: function () {
+      return reply('Luxe & Lush Aesthetics is a beauty and aesthetics business based at 19 Post House Wynd, Darlington. You can explore the treatment menu on this website and contact Jody directly with any enquiries.', ['treatments', 'contact'], SUGGEST.info, { lastIntent: 'about' }); } },
+    { keys: ['contact', 'get in touch', 'speak to', 'talk to', 'enquire', 'enquiry', 'reach you', 'ask jody'], build: function () {
+      return reply('You can reach Jody on WhatsApp or by phone at ' + PHONE_TEXT + ', by email at ' + EMAIL_TEXT + ', or through the contact section of this page.', ['whatsapp', 'call', 'email'], SUGGEST.contact, { lastIntent: 'contact' }); } },
+    { keys: ['thank', 'thanks', 'cheers'], build: function () {
+      return reply('You’re very welcome. If you’d like to go ahead, bookings are handled through the Faces Consent system — or Jody is happy to answer anything else directly.', ['booking', 'whatsapp'], SUGGEST.booking, { lastIntent: 'thanks' }); } }
+  ];
+  function matchesKeys(text, keys) {
+    return keys.some(function (key) {
+      if (key.indexOf(' ') !== -1) return text.indexOf(key) !== -1;
+      return new RegExp('(^|\\s)' + key + '(\\s|$)').test(text);
+    });
+  }
+
+  function answer(input) {
+    var raw = String(input || '').trim();
+    var text = normalize(raw);
+    if (!text) return reply('I didn’t quite catch that — could you type your question again?', [], SUGGEST.fallback, ctx);
+
+    if (/^(hi|hiya|hello|hey|good morning|good afternoon|good evening)\b/.test(text)) {
+      return reply('Hello, and welcome to Luxe & Lush. I can help with treatments, listed prices, location, booking and contacting Jody. What would you like to know?', ['booking', 'treatments'], SUGGEST.start, { lastIntent: 'greeting' });
+    }
+    if (hasAny(text, DIFF_PHRASES) && (ctx.lastTreatments || []).length >= 2) {
+      var names2 = ctx.lastTreatments.map(function (id) { return byId(id) ? byId(id).name : null; }).filter(Boolean);
+      if (names2.length >= 2) {
+        return reply(names2[0] + ' and ' + names2[1] + ' are listed as separate services on the menu. For a precise explanation of what’s included in each, Jody can provide the clinic’s current treatment details.', ['whatsapp', 'booking'], SUGGEST.info, { lastIntent: 'difference' });
+      }
+    }
+    if (/^(and |what about |how much)\b/.test(text) && (ctx.lastTreatments || []).length) {
+      var followItems = ctx.lastTreatments.map(byId).filter(Boolean).slice(0, 3);
+      if (followItems.length) return priceReply(followItems);
+    }
+
+    var priceIntent = hasAny(text, PRICE_PHRASES);
+    var infoIntent = hasAny(text, INFO_PHRASES);
+    var found = findTreatments(text);
+    var top = found.length ? found[0].score : 0;
+    var strong = found.filter(function (e) { return e.score >= Math.max(top * 0.5, 0.45); });
+
+    if (strong.length) {
+      var items = strong.map(function (e) { return e.t; });
+      if (items.length > 2) {
+        var counts = {};
+        items.forEach(function (i) { counts[i.group] = (counts[i.group] || 0) + 1; });
+        var dominant = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })[0];
+        return groupReply(dominant);
+      }
+      if (items.length === 1 && infoIntent && !priceIntent) return infoReply(items[0]);
+      return priceReply(items);
+    }
+
+    for (var c = 0; c < CATEGORY_KEYS.length; c += 1) {
+      if (hasAny(text, CATEGORY_KEYS[c].words)) return groupReply(CATEGORY_KEYS[c].id);
+    }
+    if (hasAny(text, MENU_PHRASES)) {
+      return reply('The Luxe & Lush menu is organised into these collections:\n\n• Facial Treatments\n• Dermal Filler\n• Plasma Fibroblast\n• Vitamin Treatments\n• Semi-Permanent Makeup\n• Bring a Bestie\n\nTell me a treatment name and I’ll help with the details and listed price, or explore the directory on this page.', ['treatments', 'booking'], SUGGEST.price, { lastIntent: 'menu' });
+    }
+    for (var i = 0; i < INTENTS.length; i += 1) {
+      if (matchesKeys(text, INTENTS[i].keys)) return INTENTS[i].build();
+    }
+    return reply('I want to make sure I give you the right answer, and I don’t want to guess. Could you rephrase that — or ask me about treatments, listed prices, location, booking or contacting Jody? You can also message Jody directly.', ['whatsapp', 'email'], SUGGEST.fallback, { lastIntent: 'fallback' });
+  }
+
+  /* ---- concierge UI ---- */
+  var panel = $('#concierge');
+  var fab = $('#conciergeFab');
+  var log = $('#conciergeLog');
+  var form = $('#conciergeForm');
+  var input = $('#conciergeInput');
+  var started = false;
+  var pending = null;
+
+  function scrollLog() { log.scrollTop = log.scrollHeight; }
+
+  function addBubble(role, text) {
+    log.appendChild(el('div', 'msg ' + (role === 'user' ? 'msg-user' : 'msg-bot'), text));
+    scrollLog();
+  }
+  function addActions(keys) {
+    if (!keys || !keys.length) return;
+    var box = el('div', 'msg-actions');
+    keys.forEach(function (key) {
+      var a = ACTIONS[key];
+      if (!a) return;
+      var b = el('button', null, a.label);
+      b.type = 'button';
+      b.addEventListener('click', function () {
+        if (a.scroll) {
+          setPanel(false);
+          if (a.filter) filterBy(a.filter); else scrollToSection(a.scroll);
+        } else {
+          window.open(a.href, a.external ? '_blank' : '_self');
+        }
+      });
+      box.appendChild(b);
+    });
+    log.appendChild(box);
+    scrollLog();
+  }
+  function addSuggestions(list) {
+    if (!list || !list.length) return;
+    var box = el('div', 'msg-sugg');
+    list.forEach(function (q) {
+      var b = el('button', null, q);
+      b.type = 'button';
+      b.addEventListener('click', function () { send(q); });
+      box.appendChild(b);
+    });
+    log.appendChild(box);
+    scrollLog();
+  }
+  function showTyping() {
+    var t = el('div', 'typing');
+    t.appendChild(el('i')); t.appendChild(el('i')); t.appendChild(el('i'));
+    log.appendChild(t); scrollLog();
+    return t;
+  }
+  function send(text) {
+    var value = String(text || '').trim();
+    if (!value) return;
+    addBubble('user', value);
+    input.value = '';
+    var typing = showTyping();
+    window.clearTimeout(pending);
+    pending = window.setTimeout(function () {
+      var res = answer(value);
+      ctx = res.context || {};
+      if (typing.parentNode) typing.parentNode.removeChild(typing);
+      addBubble('bot', res.text);
+      addActions(res.actions);
+      addSuggestions(res.suggestions);
+    }, 520);
+  }
+  function setPanel(open) {
+    if (!panel) return;
+    panel.classList.toggle('is-open', open);
+    if (fab) fab.classList.toggle('is-hidden', open);
+    document.body.classList.toggle('is-locked', open);
+    if (open) {
+      if (!started) {
+        started = true;
+        addBubble('bot', CONCIERGE_INTRO);
+        addSuggestions(QUICK);
+      }
+      window.setTimeout(function () { input.focus(); }, 220);
+    }
+  }
+  function openConcierge() { setPanel(true); }
+  if (fab) fab.addEventListener('click', openConcierge);
+  if ($('#conciergeClose')) $('#conciergeClose').addEventListener('click', function () { setPanel(false); });
+  $$('[data-open-concierge]').forEach(function (b) { b.addEventListener('click', openConcierge); });
+  if (form) form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && panel && panel.classList.contains('is-open')) setPanel(false); });
+})();
+</script>
+</body>
+</html>
